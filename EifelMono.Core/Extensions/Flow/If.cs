@@ -4,16 +4,29 @@ namespace EifelMono.Core.Extensions
 {
     public static class FlowExtension
     {
-        public static IfPipe<T> If<T>(this T value) where T : IComparable
+        #region Pipe
+        public class Pipe<T> where T : IComparable
         {
-            return new IfPipe<T>
+            public T Value { get; set; }
+            public bool Done { get; set; } = false;
+        }
+        #endregion
+
+        #region If Keyword
+
+        public static Pipe<T> If<T>(this T value) where T : IComparable
+        {
+            return new Pipe<T>
             {
                 Value = value,
                 Done = false
             };
         }
+        #endregion
 
-        public static IfPipe<T> Equal<T>(this IfPipe<T> pipe, T value, Action action) where T : IComparable
+        #region Equal's
+
+        public static Pipe<T> Equal<T>(this Pipe<T> pipe, T value, Action action) where T : IComparable
         {
             if (pipe.Done)
                 return pipe;
@@ -22,7 +35,7 @@ namespace EifelMono.Core.Extensions
             return pipe;
         }
 
-        public static IfPipe<T> Equal<T>(this IfPipe<T> pipe, T value, Action<T> action) where T : IComparable
+        public static Pipe<T> Equal<T>(this Pipe<T> pipe, T value, Action<T> action) where T : IComparable
         {
             if (pipe.Done)
                 return pipe;
@@ -31,7 +44,7 @@ namespace EifelMono.Core.Extensions
             return pipe;
         }
 
-        public static IfPipe<T> Equal<T>(this IfPipe<T> pipe, T value, Action<IfPipe<T>, T> action) where T : IComparable
+        public static Pipe<T> Equal<T>(this Pipe<T> pipe, T value, Action<Pipe<T>, T> action) where T : IComparable
         {
             if (pipe.Done)
                 return pipe;
@@ -39,8 +52,11 @@ namespace EifelMono.Core.Extensions
                 action?.Invoke(pipe, value);
             return pipe;
         }
+        #endregion
 
-        public static IfPipe<T> Default<T>(this IfPipe<T> pipe, Action action) where T : IComparable
+        #region Default's
+
+        public static Pipe<T> Default<T>(this Pipe<T> pipe, Action action) where T : IComparable
         {
             if (pipe.Done)
                 return pipe;
@@ -48,13 +64,14 @@ namespace EifelMono.Core.Extensions
             return pipe;
         }
 
-        public static IfPipe<T> Default<T>(this IfPipe<T> pipe, Action<IfPipe<T>> action) where T : IComparable
+        public static Pipe<T> Default<T>(this Pipe<T> pipe, Action<Pipe<T>> action) where T : IComparable
         {
             if (pipe.Done)
                 return pipe;
             action?.Invoke(pipe);
             return pipe;
         }
+        #endregion
 
     }
 }

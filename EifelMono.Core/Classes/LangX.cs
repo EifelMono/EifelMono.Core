@@ -11,6 +11,13 @@ namespace EifelMono.Core
 {
     public class LangX : IEquatable<LangX>
     {
+        #region Attribute
+        [AttributeUsage(AttributeTargets.Class)]
+        public class LangXAttribute : Attribute
+        {
+        }
+        #endregion
+
         #region Core
         [JsonIgnore]
         private int HashCode { get; set; }
@@ -18,7 +25,7 @@ namespace EifelMono.Core
         // I Need this for serialization
         public string ResX { get; protected set; } = "";
 
-        public string FormattedText { get; protected set; } = "";
+        public string FormatText { get; protected set; } = "";
 
         // I Need this for serialization
         [JsonIgnore]
@@ -27,16 +34,16 @@ namespace EifelMono.Core
             get
             {
                 if (Args != null && Args.Length > 1)
-                    return string.Format(FormattedText, Args);
+                    return string.Format(FormatText, Args);
                 else
-                    return FormattedText;
+                    return FormatText;
             }
         }
 
-        public string FormatText(params object[] args)
+        public string FormatParams(params object[] args)
         {
             if (args.Length == 0)
-                return FormattedText;
+                return FormatText;
             Args = args;
             return Text;
         }
@@ -80,12 +87,12 @@ namespace EifelMono.Core
             return result;
         }
 
-        public static LangX NewX(string formattedText = "", [CallerMemberName] string propertyName = "", [CallerFilePath] string filePathName = "")
+        public static LangX NewX(string formatText = "", [CallerMemberName] string propertyName = "", [CallerFilePath] string filePathName = "")
         {
             var prefix = Path.GetFileNameWithoutExtension(filePathName);
             return new LangX
             {
-                FormattedText = formattedText,
+                FormatText = formatText,
                 ResX = $"{ResXPrefix(filePathName)}{propertyName}"
             };
         }
@@ -99,7 +106,7 @@ namespace EifelMono.Core
                 prefix += ".";
             return new LangX
             {
-                FormattedText = formattedText,
+                FormatText = formattedText,
                 ResX = $"{prefix}{propertyName}"
             };
         }
@@ -109,7 +116,7 @@ namespace EifelMono.Core
 
         static First FirstInit = new First();
 
-        protected static void Init(Assembly assembly)
+        protected static void FindAssemblyLangXs(Assembly assembly)
         {
             if (assembly == null)
                 return;
@@ -126,13 +133,13 @@ namespace EifelMono.Core
             }
         }
 
-        public static void Init()
+        public static void FindLangXs()
         {
             if (FirstInit.IsFirst)
             {
-                Init(Assembly.GetEntryAssembly());
+                FindAssemblyLangXs(Assembly.GetEntryAssembly());
                 foreach (var assemblyName in Assembly.GetEntryAssembly().GetReferencedAssemblies())
-                    Init(Assembly.Load(assemblyName));
+                    FindAssemblyLangXs(Assembly.Load(assemblyName));
             }
         }
 
@@ -156,7 +163,7 @@ namespace EifelMono.Core
 
         public static void WriteToFile(string filename)
         {
-            Init();
+            FindLangXs();
             File.WriteAllText(filename, JsonConvert.SerializeObject(Items, Formatting.Indented));
         }
 
@@ -166,7 +173,7 @@ namespace EifelMono.Core
             {
                 var langXItem = Items.First(i => i.ResX == item.ResX);
                 if (langXItem != null)
-                    langXItem.FormattedText = item.FormattedText;
+                    langXItem.FormatText = item.FormatText;
             }
         }
         #endregion
@@ -216,6 +223,6 @@ namespace EifelMono.Core
         }
         #endregion
 
-
+        public static LangX Empty { get; private set; } = NewX();
     }
 }
