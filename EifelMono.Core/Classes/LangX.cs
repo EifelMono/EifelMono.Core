@@ -9,7 +9,7 @@ using EifelMono.Core.Extensions;
 
 namespace EifelMono.Core
 {
-    public class LangX : IEquatable<LangX>
+    public class LangX : LangXCore, IEquatable<LangX>
     {
         #region Attribute
         [AttributeUsage(AttributeTargets.Class)]
@@ -21,11 +21,6 @@ namespace EifelMono.Core
         #region Core
         [JsonIgnore]
         private int HashCode { get; set; }
-
-        // I Need this for serialization
-        public string ResX { get; protected set; } = "";
-
-        public string FormatText { get; protected set; } = "";
 
         // I Need this for serialization
         [JsonIgnore]
@@ -158,7 +153,7 @@ namespace EifelMono.Core
 
         public static void ReadFromFile(string filename)
         {
-            Load(JsonConvert.DeserializeObject<List<LangX>>(File.ReadAllText(filename)));
+            Load(JsonConvert.DeserializeObject<List<LangXCore>>(File.ReadAllText(filename)));
         }
 
         public static void WriteToFile(string filename)
@@ -167,7 +162,7 @@ namespace EifelMono.Core
             File.WriteAllText(filename, JsonConvert.SerializeObject(Items, Formatting.Indented));
         }
 
-        public static void Load(List<LangX> items)
+        public static void Load(List<LangXCore> items)
         {
             foreach (var item in items)
             {

@@ -1,10 +1,10 @@
 ﻿using System;
 namespace EifelMono.Core
 {
-    public class LangXValues
+    public class LangXCore
     {
-        public string ResX { get; protected set; } = "";
+        public string ResX { get; set; } = "";
 
-        public string FormatText { get; protected set; } = "";
+        public string FormatText { get; set; } = "";
     }
 }
