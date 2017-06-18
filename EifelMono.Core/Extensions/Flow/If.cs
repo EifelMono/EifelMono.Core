@@ -10,8 +10,15 @@ namespace EifelMono.Core.Extensions
         {
             return new Pipe<T>
             {
-                Value = value,
-                Done = false
+                Value = value
+            };
+        }
+
+        public static Pipe<object> IfAsObject(this object value)
+        {
+            return new Pipe<object>
+            {
+                Value = value
             };
         }
 

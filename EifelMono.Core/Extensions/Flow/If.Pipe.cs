@@ -7,7 +7,33 @@ namespace EifelMono.Core.Extensions
         public class Pipe<T>
         {
             public T Value { get; set; }
-            public bool Done { get; set; } = false;
+            internal bool _Break { get; set; } = false;
+
+            public bool IsBreak
+            {
+                get
+                {
+                    return _Break;
+                }
+            }
+
+            public bool SetBreak(bool value)
+            {
+                if (value)
+                    _Break = value;
+                return _Break;
+            }
+
+
+            public void Break()
+            {
+                _Break = true;
+            }
+
+            public void Continue()
+            {
+                _Break = false;
+            }
         }
         #endregion
     }

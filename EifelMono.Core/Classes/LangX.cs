@@ -5,6 +5,7 @@ using System.Runtime.CompilerServices;
 using Newtonsoft.Json;
 using System.IO;
 using System.Reflection;
+using System.Diagnostics;
 using EifelMono.Core.Extensions;
 
 namespace EifelMono.Core
@@ -17,6 +18,19 @@ namespace EifelMono.Core
         {
         }
         #endregion
+
+        [System.Runtime.CompilerServices.MethodImpl(MethodImplOptions.NoInlining)]
+        public LangX()
+        {
+            ItemsAdd(this);
+        }
+        [System.Runtime.CompilerServices.MethodImpl(MethodImplOptions.NoInlining)]
+        public LangX(string formatText, [CallerMemberName] string propertyName = "", [CallerFilePath] string filePathName = "") :
+            this()
+        {
+            ResX = $"{ResXPrefix(filePathName)}{propertyName}";
+            FormatText = formatText;
+        }
 
         #region Core
         [JsonIgnore]
@@ -45,11 +59,6 @@ namespace EifelMono.Core
 
         [JsonIgnore]
         public object[] Args { get; set; }
-
-        public LangX()
-        {
-            ItemsAdd(this);
-        }
 
         [JsonIgnore]
         public static Func<string, string> OnResXPrefix { get; set; } = null;
@@ -82,29 +91,6 @@ namespace EifelMono.Core
             return result;
         }
 
-        public static LangX NewX(string formatText = "", [CallerMemberName] string propertyName = "", [CallerFilePath] string filePathName = "")
-        {
-            var prefix = Path.GetFileNameWithoutExtension(filePathName);
-            return new LangX
-            {
-                FormatText = formatText,
-                ResX = $"{ResXPrefix(filePathName)}{propertyName}"
-            };
-        }
-
-        public static LangX PrefixNewX(string prefix, string formattedText = "", [CallerMemberName] string propertyName = "", [CallerFilePath] string filePathName = "")
-        {
-            if (string.IsNullOrEmpty(prefix))
-                prefix = "";
-            else
-                if (!prefix.EndsWith(".", StringComparison.Ordinal))
-                prefix += ".";
-            return new LangX
-            {
-                FormatText = formattedText,
-                ResX = $"{prefix}{propertyName}"
-            };
-        }
         #endregion
 
         #region Items
@@ -218,6 +204,6 @@ namespace EifelMono.Core
         }
         #endregion
 
-        public static LangX Empty { get; private set; } = NewX();
+        public static LangX Empty { get; private set; } = new LangX("");
     }
 }

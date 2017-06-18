@@ -3,57 +3,43 @@ namespace EifelMono.Core.Extensions
 {
     public static partial class IfExtension
     {
-        #region Is
-        public static Pipe<T> Is<T>(this Pipe<T> pipe, T value, Action action) where T : class
+        #region AsObject
+        public static Pipe<object> AsObject<T>(this Pipe<T> pipe) where T : class
         {
-            if (pipe.Done)
-                return pipe;
-            if (value is T newValue)
+            return new Pipe<object>()
             {
-                pipe.Done = true;
-                action?.Invoke();
-            }
-            return pipe;
-        }
-
-        public static Pipe<T> Is<T>(this Pipe<T> pipe, T value, Action<Pipe<T>, T> action) where T : class
-        {
-            if (pipe.Done)
-                return pipe;
-            if (value is T newValue)
-            {
-                pipe.Done = true;
-                action?.Invoke(pipe, newValue);
-            }
-            return pipe;
+                _Break = pipe._Break,
+                Value = (object)pipe.Value
+            };
         }
         #endregion
 
-        #region IsAndEqual
-
-        public static Pipe<T> IsAndEqual<T>(this Pipe<T> pipe, T value, Func<T, bool> equalAction, Action action) where T : class
+        #region Is
+        public static Pipe<object> Is<T>(this Pipe<object> pipe, Action<Pipe<object>, T> action) where T : class
         {
-            if (pipe.Done)
+            if (pipe.IsBreak)
                 return pipe;
-            if (value is T newValue)
-                if (equalAction != null && equalAction.Invoke(newValue))
-                {
-                    pipe.Done = true;
-                    action?.Invoke();
-                }
+            if (pipe.Value is T value)
+            {
+                pipe.BreakOnCondition(true);
+                action?.Invoke(pipe, value);
+            }
             return pipe;
         }
 
-        public static Pipe<T> IsAndEqual<T>(this Pipe<T> pipe, T value, Func<T, bool> equalAction, Action<Pipe<T>, T> action) where T : class
+        public static Pipe<object> IsCondition<T>(this Pipe<object> pipe, Func<Pipe<object>, T, bool> conditionAction, Action<Pipe<object>, T> action) where T : class
         {
-            if (pipe.Done)
+            if (pipe.IsBreak)
                 return pipe;
-            if (value is T newValue)
-                if (equalAction != null && equalAction.Invoke(newValue))
+            if (pipe.Value is T value)
+            {
+                if (conditionAction(pipe, value))
                 {
-                    pipe.Done = true;
-                    action?.Invoke(pipe, newValue);
+                    pipe.BreakOnCondition(true);
+                    action?.Invoke(pipe, value);  
                 }
+
+            }
             return pipe;
         }
         #endregion

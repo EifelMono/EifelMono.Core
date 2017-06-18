@@ -3,43 +3,37 @@ namespace EifelMono.Core.Extensions
 {
     public static partial class IfExtension
     {
-        #region StartsWith
+        #region Contains
 
-        public static Pipe<string> StartsWith(this Pipe<string> pipe, string value, Action action)
+        public static Pipe<string> Contains(this Pipe<string> pipe, string value, Action<Pipe<string>, string> action= null)
         {
-            if (pipe.Done)
+            if (pipe.IsBreak)
                 return pipe;
-            if (pipe.Done = pipe.Value.StartsWith(value, StringComparison.Ordinal))
-                action?.Invoke();
-            return pipe;
-        }
-
-        public static Pipe<string> StartWith(this Pipe<string> pipe, string value, Action<Pipe<string>, string> action)
-        {
-            if (pipe.Done)
-                return pipe;
-            if (pipe.Done = pipe.Value.StartsWith(value, StringComparison.Ordinal))
+            if (pipe.IsThisBreak(pipe.Value.Contains(value)))
                 action?.Invoke(pipe, value);
             return pipe;
         }
         #endregion
 
-        #region Contains
+        #region StartsWith
 
-        public static Pipe<string> Contains(this Pipe<string> pipe, string value, Action action)
+        public static Pipe<string> StartWith(this Pipe<string> pipe, string value, Action<Pipe<string>, string> action= null)
         {
-            if (pipe.Done)
+            if (pipe.IsBreak)
                 return pipe;
-            if (pipe.Done = pipe.Value.Contains(value))
-                action?.Invoke();
+            if (pipe.IsThisBreak(pipe.Value.StartsWith(value, StringComparison.Ordinal)))
+                action?.Invoke(pipe, value);
             return pipe;
         }
+        #endregion
 
-        public static Pipe<string> Contains(this Pipe<string> pipe, string value, Action<Pipe<string>, string> action)
+        #region EndsWith
+
+        public static Pipe<string> EndsWith(this Pipe<string> pipe, string value, Action<Pipe<string>, string> action= null)
         {
-            if (pipe.Done)
+            if (pipe.IsBreak)
                 return pipe;
-            if (pipe.Done = pipe.Value.Contains(value))
+            if (pipe.IsThisBreak(pipe.Value.EndsWith(value, StringComparison.Ordinal)))
                 action?.Invoke(pipe, value);
             return pipe;
         }
