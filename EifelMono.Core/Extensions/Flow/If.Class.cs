@@ -21,7 +21,7 @@ namespace EifelMono.Core.Extensions
                 return pipe;
             if (pipe.Value is T value)
             {
-                pipe.BreakOnCondition(true);
+                pipe.SetBreak(true);
                 action?.Invoke(pipe, value);
             }
             return pipe;
@@ -35,7 +35,7 @@ namespace EifelMono.Core.Extensions
             {
                 if (conditionAction(pipe, value))
                 {
-                    pipe.BreakOnCondition(true);
+                    pipe.SetBreak(true);
                     action?.Invoke(pipe, value);  
                 }
 

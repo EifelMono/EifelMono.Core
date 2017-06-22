@@ -152,9 +152,16 @@ namespace EifelMono.Core
         {
             foreach (var item in items)
             {
-                var langXItem = Items.First(i => i.ResX == item.ResX);
-                if (langXItem != null)
-                    langXItem.FormatText = item.FormatText;
+                try
+                {
+                    var langXItem = Items.First(i => i.ResX == item.ResX);
+                    if (langXItem != null)
+                        langXItem.FormatText = item.FormatText;
+                }
+                catch(Exception ex)
+                {
+                    ex.LogException();
+                }
             }
         }
         #endregion

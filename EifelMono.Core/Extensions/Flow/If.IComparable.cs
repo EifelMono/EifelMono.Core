@@ -11,7 +11,7 @@ namespace EifelMono.Core.Extensions
         {
             if (pipe.IsBreak)
                 return pipe;
-            if (pipe.IsThisBreak(pipe.Value.CompareTo(value) == 0))
+            if (pipe.SetBreak(pipe.Value.CompareTo(value) == 0))
                 action?.Invoke(pipe);
             return pipe;
         }
@@ -25,7 +25,7 @@ namespace EifelMono.Core.Extensions
                 return pipe;
             foreach (var value in values)
             {
-                if (pipe.IsThisBreak(pipe.Value.CompareTo(value) == 0))
+                if (pipe.SetBreak(pipe.Value.CompareTo(value) == 0))
                     action?.Invoke(pipe, value);
                 if (pipe.IsBreak)
                     return pipe;

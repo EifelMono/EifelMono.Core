@@ -9,7 +9,7 @@ namespace EifelMono.Core.Extensions
         {
             if (pipe.IsBreak)
                 return pipe;
-            if (pipe.IsThisBreak(pipe.Value.Contains(value)))
+            if (pipe.SetBreak(pipe.Value.Contains(value)))
                 action?.Invoke(pipe, value);
             return pipe;
         }
@@ -21,7 +21,7 @@ namespace EifelMono.Core.Extensions
         {
             if (pipe.IsBreak)
                 return pipe;
-            if (pipe.IsThisBreak(pipe.Value.StartsWith(value, StringComparison.Ordinal)))
+            if (pipe.SetBreak(pipe.Value.StartsWith(value, StringComparison.Ordinal)))
                 action?.Invoke(pipe, value);
             return pipe;
         }
@@ -33,7 +33,7 @@ namespace EifelMono.Core.Extensions
         {
             if (pipe.IsBreak)
                 return pipe;
-            if (pipe.IsThisBreak(pipe.Value.EndsWith(value, StringComparison.Ordinal)))
+            if (pipe.SetBreak(pipe.Value.EndsWith(value, StringComparison.Ordinal)))
                 action?.Invoke(pipe, value);
             return pipe;
         }

@@ -9,11 +9,8 @@ namespace EifelMono.Core.Extensions
             if (pipe.IsBreak)
                 return pipe;
             if (pipe.Value is T value)
-                if (conditionAction != null && conditionAction.Invoke(pipe, value))
-                {
-                    pipe.Break();
+                if (pipe.SetBreak(conditionAction != null && conditionAction.Invoke(pipe, value)))
                     action?.Invoke(pipe, value);
-                }
             return pipe;
         }
 
@@ -21,7 +18,7 @@ namespace EifelMono.Core.Extensions
         {
             if (pipe.IsBreak)
                 return pipe;
-            if (pipe.IsThisBreak(true))
+            if (pipe.SetBreak(true))
                 action?.Invoke();
             return pipe;
         }
