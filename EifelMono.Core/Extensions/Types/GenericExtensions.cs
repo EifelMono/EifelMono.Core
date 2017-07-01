@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using Newtonsoft;
 using Newtonsoft.Json;
 
@@ -80,6 +81,15 @@ namespace EifelMono.Core.Extensions
             return result;
         }
 
+        public static T ConvertInRange<T>(this T value, T minChoice, T maxChoise) where T : IComparable
+        {
+            if (value.CompareTo(minChoice) < 0)
+                return minChoice;
+            if (value.CompareTo(maxChoise) > 0)
+                return maxChoise;
+            return value;
+        }
+
         #endregion
 
         #region OutRange
@@ -157,6 +167,33 @@ namespace EifelMono.Core.Extensions
 
         #endregion
 
+        public static IEnumerable<T> Inverse<T>(this IList<T> list)
+        {
+            int count = list.Count;
+            for (int i = count - 1; i >= 0; --i)
+                yield return list[i];
+        }
+
+        public static IEnumerable<T> Inverse<T>(this T[] array)
+        {
+            int length = array.Length;
+            for (int i = length - 1; i >= 0; --i)
+                yield return array[i];
+        }
+
+        public static IEnumerable<T> Inverse<T>(this Array array)
+        {
+            int length = array.Length;
+            for (int i = length - 1; i >= 0; --i)
+                yield return (T)array.GetValue(i);
+        }
+
+        public static IEnumerable<T> Inverse<T>(this IEnumerable<T> elements)
+        {
+            var list = elements.ToList();
+            return list.Inverse();
+        }
+
         public static T Clamp<T>(this T val, T min, T max) where T : IComparable<T>
         {
             if (val.CompareTo(min) < 0) return min;
@@ -182,5 +219,7 @@ namespace EifelMono.Core.Extensions
             return JsonConvert.DeserializeObject<T>(JsonConvert.SerializeObject(value));
         }
         #endregion
+
+
     }
 }
