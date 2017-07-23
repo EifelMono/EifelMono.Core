@@ -14,7 +14,7 @@ namespace EifelMono.Core
             var list = new List<Check>();
             if (thisObject == null)
                 return list;
-            foreach (var propertyInfo in thisObject.GetType().GetTypeInfo().GetProperties()) 
+            foreach (var propertyInfo in thisObject.GetType().GetTypeInfo().GetProperties())
             {
                 if (propertyInfo.PropertyType.GetTypeInfo().IsSubclassOf(typeof(Check)))
                     list.Add((Check)propertyInfo.GetValue(thisObject));
@@ -58,10 +58,10 @@ namespace EifelMono.Core
             }
             set
             {
-
                 if ((object)_Value == null)
                     IsChanged = false;
                 else
+                    if (!IsChanged)
                     IsChanged = _Value.CompareTo(value) != 0;
                 _Value = value;
             }

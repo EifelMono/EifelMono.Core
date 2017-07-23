@@ -42,8 +42,15 @@ namespace EifelMono.Core
         {
             get
             {
-                if (Args != null && Args.Length > 1)
-                    return string.Format(FormatText, Args);
+                if (Args != null && Args.Length > 0)
+                    try
+                    {
+                        return string.Format(FormatText, Args);
+                    }
+                    catch
+                    {
+                        return FormatText;
+                    }
                 else
                     return FormatText;
             }
@@ -158,7 +165,7 @@ namespace EifelMono.Core
                     if (langXItem != null)
                         langXItem.FormatText = item.FormatText;
                 }
-                catch(Exception ex)
+                catch (Exception ex)
                 {
                     ex.LogException();
                 }

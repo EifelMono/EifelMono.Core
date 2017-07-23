@@ -25,6 +25,12 @@ namespace EifelMono.Core.Extensions
             return value.InRange(baseValue - offset, baseValue + offset);
         }
 
+        public static int ToInt(this string value)
+        {
+            Int32 result = 0;
+            Int32.TryParse(value, out result);
+            return result;
+        }
         #endregion
     }
 }

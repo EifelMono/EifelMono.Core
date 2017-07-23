@@ -216,7 +216,15 @@ namespace EifelMono.Core.Extensions
 
         public static T Clone<T>(this T value)
         {
-            return JsonConvert.DeserializeObject<T>(JsonConvert.SerializeObject(value));
+            try
+            {
+                return JsonConvert.DeserializeObject<T>(JsonConvert.SerializeObject(value));
+            }
+            catch (Exception ex)
+            {
+                ex.LogException();
+                return default(T);
+            }
         }
         #endregion
 
