@@ -125,9 +125,23 @@ namespace EifelMono.Core
         {
             if (FirstInit.IsFirst)
             {
-                FindAssemblyLangXs(Assembly.GetEntryAssembly());
-                foreach (var assemblyName in Assembly.GetEntryAssembly().GetReferencedAssemblies())
-                    FindAssemblyLangXs(Assembly.Load(assemblyName));
+                try
+                {
+                    FindAssemblyLangXs(Assembly.GetEntryAssembly());
+                    foreach (var assemblyName in Assembly.GetEntryAssembly().GetReferencedAssemblies())
+                        try
+                        {
+                            FindAssemblyLangXs(Assembly.Load(assemblyName));
+                        }
+                        catch (Exception ex)
+                        {
+                            Debug.WriteLine(ex);
+                        }
+                }
+                catch (Exception ex)
+                {
+                    Debug.WriteLine(ex);
+                }
             }
         }
 
