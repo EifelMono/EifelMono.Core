@@ -3,6 +3,12 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EifelMono.Core", "EifelMono.Core\EifelMono.Core.csproj", "{8893EC34-32E7-4F0C-9946-D8C17264F842}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleSample", "ConsoleSample\ConsoleSample.csproj", "{9071CAB1-F071-4EB9-AFF2-BB736DBA52BC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test", "Test\Test.csproj", "{8F8CE107-4440-4559-BA88-1ACA0FEC5789}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "#Test", "#Test", "{E9FFA124-2ABB-444F-84E8-D92F8435CC62}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -13,5 +19,17 @@ Global
 		{8893EC34-32E7-4F0C-9946-D8C17264F842}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8893EC34-32E7-4F0C-9946-D8C17264F842}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8893EC34-32E7-4F0C-9946-D8C17264F842}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9071CAB1-F071-4EB9-AFF2-BB736DBA52BC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9071CAB1-F071-4EB9-AFF2-BB736DBA52BC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9071CAB1-F071-4EB9-AFF2-BB736DBA52BC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9071CAB1-F071-4EB9-AFF2-BB736DBA52BC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8F8CE107-4440-4559-BA88-1ACA0FEC5789}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8F8CE107-4440-4559-BA88-1ACA0FEC5789}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8F8CE107-4440-4559-BA88-1ACA0FEC5789}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8F8CE107-4440-4559-BA88-1ACA0FEC5789}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{8F8CE107-4440-4559-BA88-1ACA0FEC5789} = {E9FFA124-2ABB-444F-84E8-D92F8435CC62}
+		{9071CAB1-F071-4EB9-AFF2-BB736DBA52BC} = {E9FFA124-2ABB-444F-84E8-D92F8435CC62}
 	EndGlobalSection
 EndGlobal

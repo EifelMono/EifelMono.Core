@@ -10,6 +10,13 @@ using EifelMono.Core.Extensions;
 
 namespace EifelMono.Core
 {
+    public class LangXCore
+    {
+        public string ResX { get; set; } = "";
+
+        public string FormatText { get; set; } = "";
+    }
+
     public class LangX : LangXCore, IEquatable<LangX>
     {
         #region Attribute

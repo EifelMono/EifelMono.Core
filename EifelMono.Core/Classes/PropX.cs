@@ -7,9 +7,13 @@ using System.Runtime.CompilerServices;
 
 namespace EifelMono.Core
 {
-    public class PropX<T> : PropXCore where T : IComparable
+    public class PropX
     {
+        public object Value { get; set; }
+    }
 
+    public class PropX<T> : PropX where T : IComparable
+    {
         public PropX(IOnPropertyChanged parent, [CallerMemberName] string propertyName = "")
         {
             Parent = parent;
@@ -28,7 +32,12 @@ namespace EifelMono.Core
 
         public new T Value { get { return GetValue(); } set { SetValue(value); } }
 
-        private void SetValue(T value)
+        protected virtual T GetValue()
+        {
+            return (T)base.Value;
+        }
+
+        protected virtual void SetValue(T value)
         {
             var tValue = (T)base.Value;
             if (!tValue.Equals(null))
@@ -41,9 +50,6 @@ namespace EifelMono.Core
             }
         }
 
-        private T GetValue()
-        {
-            return (T)base.Value;
-        }
+     
     }
 }

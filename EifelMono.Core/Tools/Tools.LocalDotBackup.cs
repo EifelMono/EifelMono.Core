@@ -4,7 +4,7 @@ using System.IO;
 using System.Threading.Tasks;
 using EifelMono.Core.Extensions;
 
-namespace EifelMono.KaOS.Tools
+namespace EifelMono.Tools
 {
     public static partial class Tools
     {

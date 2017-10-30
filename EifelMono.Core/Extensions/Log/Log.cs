@@ -32,7 +32,7 @@ namespace EifelMono.Core.Extensions
         #endregion
 
         #region Trace
-        public partial class Kind: EnumOf<string>
+        public partial class Kind : EnumOf<string>
         {
             public static Kind Trace = new Kind { Value = $"{nameof(Trace)}" };
         }
@@ -60,6 +60,47 @@ namespace EifelMono.Core.Extensions
                                      [CallerFilePath] string callerFilePath = "")
         {
             return ProxyLog(null, parentDetail, message, Kind.Info, callerMemberName, callerLineNumber, callerFilePath);
+        }
+
+        #endregion
+
+        #region Log Value
+        public partial class Kind : EnumOf<string>
+        {
+            public static Kind Variable = new Kind { Value = $"{nameof(Variable)}" };
+        }
+
+        public static Detail LogVariable<T>(this T value,
+                                            string message = "",
+                                            Detail parentDetail = null,
+                                            [CallerMemberName] string callerMemberName = "",
+                                            [CallerLineNumber] int callerLineNumber = -1,
+                                            [CallerFilePath] string callerFilePath = "")
+        {
+            string valueString = "";
+            try
+            {
+                valueString = value?.ToString();
+            }
+            catch
+            {
+                valueString = "null";
+            }
+            if (message == null)
+                valueString = $"Value:{callerMemberName}={valueString}";
+            else
+                try
+                {
+                    if (message.Contains("{0}"))
+                        valueString = string.Format(message, value);
+                    else
+                        valueString = message;
+                }
+                catch (Exception ex)
+                {
+                    valueString = ex.ToString();
+                }
+            return ProxyLog(null, parentDetail, valueString, Kind.Variable, callerMemberName, callerLineNumber, callerFilePath);
         }
         #endregion
 
@@ -109,7 +150,6 @@ namespace EifelMono.Core.Extensions
             return ProxyLog(null, parentDetail, message, Kind.Debug, callerMemberName, callerLineNumber, callerFilePath);
         }
         #endregion
-
 
         #region Log Exception
         public partial class Kind : EnumOf<string>
