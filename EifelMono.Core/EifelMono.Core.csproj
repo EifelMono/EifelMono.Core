@@ -2,6 +2,14 @@
 <Project Sdk="Microsoft.NET.Sdk">
 	<PropertyGroup>
 		<TargetFramework>netstandard2.0</TargetFramework>
+		<PackOnBuild>true</PackOnBuild>
+		<PackageId>EifelMono.Core</PackageId>
+		<PackageVersion>1.0.0</PackageVersion>
+		<Authors>eifelmono@klapperich.de</Authors>
+		<NeutralLanguage>en</NeutralLanguage>
+		<Owners>Andreas Klapperich</Owners>
+		<Title>EifelMono.Core</Title>
+		<Description>Core c# routines for a better world</Description>
 	</PropertyGroup>
 	<ItemGroup>
 		<Folder Include="Classes\" />
@@ -10,6 +18,7 @@
 	</ItemGroup>
 	<ItemGroup>
 		<PackageReference Include="Newtonsoft.Json" Version="10.0.3" />
-		<PackageReference Include="Microsoft.CSharp" Version="4.4.0" />
+		<PackageReference Include="Microsoft.CSharp" Version="4.4.1" />
+		<PackageReference Include="NuGet.Build.Packaging" Version="0.2.0" />
 	</ItemGroup>
 </Project>

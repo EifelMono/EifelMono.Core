@@ -38,3 +38,9 @@ Thumbs.db
 
 # dotCover
 *.dotCover
+
+# cake.build
+**/tools/**
+!**/tools/packages.config
+tools/**
+!tools/packages.config

@@ -13,9 +13,9 @@ namespace EifelMono.Core.Extensions
         public static bool In<T>(this T value, IEnumerable<T> choices)
         {
             foreach (var choice in choices)
-                if (choice.Equals(value))
-                    return true;
-            return false;
+                if (!choice.Equals(value))
+                    return false;
+            return true;
         }
 
         public static bool In<T>(this T value, params T[] choices)
@@ -26,9 +26,9 @@ namespace EifelMono.Core.Extensions
         public static bool In<T>(this IEnumerable<T> values, IEnumerable<T> choices)
         {
             foreach (var value in values)
-                if (value.In(choices))
-                    return true;
-            return false;
+                if (!value.In(choices))
+                    return false;
+            return true;
         }
 
         public static bool In<T>(this IEnumerable<T> values, params T[] choices)
@@ -71,23 +71,12 @@ namespace EifelMono.Core.Extensions
 
         public static bool InRange<T>(this IEnumerable<T> values, T minChoice, T maxChoise) where T : IComparable
         {
-            bool result = false;
             foreach (var value in values)
             {
-                result = value.InRange(minChoice, maxChoise);
-                if (result)
-                    return result;
+                if (!value.InRange(minChoice, maxChoise))
+                    return false;
             }
-            return result;
-        }
-
-        public static T ConvertInRange<T>(this T value, T minChoice, T maxChoise) where T : IComparable
-        {
-            if (value.CompareTo(minChoice) < 0)
-                return minChoice;
-            if (value.CompareTo(maxChoise) > 0)
-                return maxChoise;
-            return value;
+            return true;
         }
 
         #endregion
@@ -196,9 +185,11 @@ namespace EifelMono.Core.Extensions
 
         public static T Clamp<T>(this T val, T min, T max) where T : IComparable<T>
         {
-            if (val.CompareTo(min) < 0) return min;
-            else if (val.CompareTo(max) > 0) return max;
-            else return val;
+            if (val.CompareTo(min) < 0)
+                return min;
+            if (val.CompareTo(max) > 0)
+                return max;
+            return val;
         }
 
         #region Pipe
@@ -214,7 +205,10 @@ namespace EifelMono.Core.Extensions
             return action(pipe);
         }
 
-        public static T Clone<T>(this T value)
+        #endregion
+
+        #region Json
+        public static T JsonClone<T>(this T value, T defaultValue = default(T))
         {
             try
             {
@@ -223,7 +217,20 @@ namespace EifelMono.Core.Extensions
             catch (Exception ex)
             {
                 ex.LogException();
-                return default(T);
+                return defaultValue;
+            }
+        }
+
+        public static string ToJsonString(this object value)
+        {
+            try
+            {
+                return JsonConvert.SerializeObject(value, Formatting.Indented);
+            }
+            catch (Exception ex)
+            {
+                ex.LogException();
+                return ex.ToString();
             }
         }
         #endregion
