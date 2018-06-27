@@ -1,5 +1,5 @@
 ﻿using System;
-namespace EifelMono.Core
+namespace EifelMono.Core.Classes
 {
     public class Toogle
     {

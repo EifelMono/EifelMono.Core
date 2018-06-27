@@ -1,8 +1,9 @@
 ﻿using System;
 using Newtonsoft.Json;
 
-namespace EifelMono.Core
+namespace EifelMono.Core.Classes
 {
+    [Obsolete]
     public class EnumOf<T> : IEquatable<EnumOf<T>> where T : IComparable
     {
         #region Core

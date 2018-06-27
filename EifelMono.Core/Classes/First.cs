@@ -1,7 +1,8 @@
 ﻿using System;
 
-namespace EifelMono.Core
+namespace EifelMono.Core.Classes
 {
+    [Obsolete]
     public class First
     {
         private bool _Flag = true;
@@ -22,6 +23,7 @@ namespace EifelMono.Core
         }
     }
 
+    [Obsolete]
     public class First<T> : First where T : IComparable
     {
         public First()

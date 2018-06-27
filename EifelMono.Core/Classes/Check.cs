@@ -2,8 +2,9 @@
 using System.Collections.Generic;
 using System.Reflection;
 
-namespace EifelMono.Core
+namespace EifelMono.Core.Classes
 {
+    [Obsolete]
     public class Check
     {
         public bool IsChanged { get; set; } = false;
@@ -37,6 +38,7 @@ namespace EifelMono.Core
         }
     }
 
+    [Obsolete]
     public class Check<T> : Check where T : IComparable
     {
         public Check()

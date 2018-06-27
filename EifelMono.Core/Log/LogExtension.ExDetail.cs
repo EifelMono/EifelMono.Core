@@ -1,8 +1,7 @@
 ﻿using System;
 
-namespace EifelMono.Core.Extensions
-{
-    public static partial class Log
+namespace EifelMono.Core.Log {
+    public static partial class LogExtension
     {
         public class ExDetail : Detail
         {
@@ -14,3 +13,4 @@ namespace EifelMono.Core.Extensions
         }
     }
 }
+ 

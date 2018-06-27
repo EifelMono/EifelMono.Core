@@ -1,20 +1,28 @@
-﻿﻿using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
 using EifelMono.Core.Extensions;
+using EifelMono.Core.Log;
+using EifelMono.Core.System;
 
-namespace EifelMono.Tools
+namespace EifelMono.Core.Tools
 {
     public static partial class Tools
     {
-        public static async Task LocalDotBackupFile(string filename, int days = 30)
+        public static async Task LocalDotBackupFileAsync(string filename, int days = 30)
+        {
+            await Task.Run(() =>
+            {
+                LocalDotBackupFile(filename, days);
+            }).ConfigureAwait(false);
+        }
+        public static void LocalDotBackupFile(string filename, int days = 30)
         {
             Func<DateTime, string> DateFilename = (timestamp) =>
             {
                 string backupDir = Path.Combine(Path.GetDirectoryName(filename), $".backup", $"{Path.GetFileName(filename)}");
-                if (!Directory.Exists(backupDir))
-                    Directory.CreateDirectory(backupDir);
+                EmcDirectory.EnsureDirectoryExists(backupDir);
                 var listOfNames = new List<string>();
                 var filenameExtenstion = Path.GetExtension(filename);
                 for (int index = 0; index < 30; index++)
@@ -45,20 +53,10 @@ namespace EifelMono.Tools
                 try
                 {
                     File.Copy(filename, savedFilename, true);
-                    await Task.Run(() =>
-                     {
-                         try
-                         {
-                             var backupFilename = DateFilename(DateTime.Now); // clears the original filename
-                             File.Copy(savedFilename, backupFilename, true);
-                             // File with original filename also to backup to.....
-                             File.Copy(filename, Path.Combine(Path.GetDirectoryName(backupFilename), Path.GetFileName(filename)), true);
-                         }
-                         catch (Exception ex)
-                         {
-                             ex.LogException();
-                         }
-                     });
+                    var backupFilename = DateFilename(DateTime.Now); // clears the original filename
+                    File.Copy(savedFilename, backupFilename, true);
+                    // File with original filename also to backup to.....
+                    File.Copy(filename, Path.Combine(Path.GetDirectoryName(backupFilename), Path.GetFileName(filename)), true);
                 }
                 catch (Exception ex)
                 {
@@ -68,8 +66,7 @@ namespace EifelMono.Tools
                 {
                     try
                     {
-                        if (File.Exists(savedFilename))
-                            File.Delete(savedFilename);
+                        EmcFile.EnsureExistDelete(savedFilename);
                     }
                     catch (Exception ex)
                     {

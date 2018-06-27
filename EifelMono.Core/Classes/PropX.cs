@@ -5,13 +5,15 @@ using System.Linq;
 using System.Reflection;
 using System.Runtime.CompilerServices;
 
-namespace EifelMono.Core
+namespace EifelMono.Core.Classes
 {
+    [Obsolete]
     public class PropX
     {
         public object Value { get; set; }
     }
 
+    [Obsolete]
     public class PropX<T> : PropX where T : IComparable
     {
         public PropX(IOnPropertyChanged parent, [CallerMemberName] string propertyName = "")

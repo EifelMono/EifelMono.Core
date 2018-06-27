@@ -1,11 +1,11 @@
 using System;
 
-namespace EifelMono.Core.Extensions
-{
+namespace EifelMono.Core.Log {
     public interface ILogProxy
     {
-        void Log(Log.Detail details);
+        void Log(LogExtension.Detail details);
 
         bool FileNameOnly { get; set; }
     }
 }
+ 

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using EifelMono.Core.Log;
 using Newtonsoft;
 using Newtonsoft.Json;
 

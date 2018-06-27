@@ -2,6 +2,7 @@ using System;
 using Xunit;
 using EifelMono.Core.Extensions;
 using EifelMono.Core;
+using EifelMono.Core.Classes;
 
 namespace EifelMono.Core.Test
 {

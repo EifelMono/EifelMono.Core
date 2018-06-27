@@ -12,7 +12,6 @@
 		<Description>Core c# routines for a better world</Description>
 	</PropertyGroup>
 	<ItemGroup>
-		<Folder Include="Classes\" />
 		<Folder Include="Extensions\" />
 		<Folder Include="Tools\" />
 	</ItemGroup>

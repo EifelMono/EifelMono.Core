@@ -1,9 +1,8 @@
 ﻿﻿using System;
 using System.IO;
 
-namespace EifelMono.Core.Extensions
-{
-    public static partial class Log
+namespace EifelMono.Core.Log {
+    public static partial class LogExtension
     {
         public class Detail
         {
@@ -17,7 +16,7 @@ namespace EifelMono.Core.Extensions
             /// Kind of this Log Detail
             /// </summary>
             /// <value>The kind.</value>
-            public Kind Kind { get; set; }
+            public LogKind Kind { get; set; }
 
             /// <summary>
             /// Message of this Log Detail
@@ -76,3 +75,4 @@ namespace EifelMono.Core.Extensions
         }
     }
 }
+ 

@@ -1,8 +1,10 @@
 ﻿using System;
 using EifelMono.Core.Extensions;
+using EifelMono.Core.Log;
 
-namespace EifelMono.Core
+namespace EifelMono.Core.Classes
 {
+    [Obsolete]
     public class ValueX
     {
         public object Value { get; set; } = default(object);
@@ -11,6 +13,7 @@ namespace EifelMono.Core
         public bool IsInit { get; set; } = false;
     }
 
+    [Obsolete]
     public class ValueX<T> : ValueX where T : IComparable
     {
         public ValueX()

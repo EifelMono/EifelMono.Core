@@ -7,9 +7,11 @@ using System.IO;
 using System.Reflection;
 using System.Diagnostics;
 using EifelMono.Core.Extensions;
+using EifelMono.Core.Log;
 
-namespace EifelMono.Core
+namespace EifelMono.Core.Classes
 {
+    [Obsolete]
     public class LangXCore
     {
         public string ResX { get; set; } = "";
@@ -17,6 +19,7 @@ namespace EifelMono.Core
         public string FormatText { get; set; } = "";
     }
 
+    [Obsolete]
     public class LangX : LangXCore, IEquatable<LangX>
     {
         #region Attribute
@@ -26,12 +29,12 @@ namespace EifelMono.Core
         }
         #endregion
 
-        [System.Runtime.CompilerServices.MethodImpl(MethodImplOptions.NoInlining)]
+        [global::System.Runtime.CompilerServices.MethodImpl(MethodImplOptions.NoInlining)]
         public LangX()
         {
             ItemsAdd(this);
         }
-        [System.Runtime.CompilerServices.MethodImpl(MethodImplOptions.NoInlining)]
+        [global::System.Runtime.CompilerServices.MethodImpl(MethodImplOptions.NoInlining)]
         public LangX(string formatText, [CallerMemberName] string propertyName = "", [CallerFilePath] string filePathName = "") :
             this()
         {

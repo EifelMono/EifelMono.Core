@@ -1,11 +1,10 @@
 using System;
 using System.Diagnostics;
 
-namespace EifelMono.Core.Extensions
-{
+namespace EifelMono.Core.Log {
     public class DebugLogProxy : LogProxy
     {
-        public override void Log(Log.Detail details)
+        public override void Log(LogExtension.Detail details)
         {
             base.Log(details);
         }
@@ -15,3 +14,4 @@ namespace EifelMono.Core.Extensions
         //}
     }
 }
+ 

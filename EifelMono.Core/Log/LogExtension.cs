@@ -1,9 +1,8 @@
 ﻿using System;
 using System.Runtime.CompilerServices;
 
-namespace EifelMono.Core.Extensions
-{
-    public static partial class Log
+namespace EifelMono.Core.Log {
+    public static partial class LogExtension
     {
         #region Proxy, gobal call
 
@@ -12,7 +11,7 @@ namespace EifelMono.Core.Extensions
         public static Detail ProxyLog(Detail detail,
                                       Detail parentDetail,
                                       string message,
-                                      Kind kind,
+                                      LogKind kind,
                                       string callerMemberName,
                                       int callerLineNumber,
                                       string callerFilePath)
@@ -32,26 +31,18 @@ namespace EifelMono.Core.Extensions
         #endregion
 
         #region Trace
-        public partial class Kind : EnumOf<string>
-        {
-            public static Kind Trace = new Kind { Value = $"{nameof(Trace)}" };
-        }
-
         public static Detail LogTrace(this string message,
                                       Detail parentDetail = null,
                                       [CallerMemberName] string callerMemberName = "",
                                       [CallerLineNumber] int callerLineNumber = -1,
                                       [CallerFilePath] string callerFilePath = "")
         {
-            return ProxyLog(null, parentDetail, message, Kind.Trace, callerMemberName, callerLineNumber, callerFilePath);
+            return ProxyLog(null, parentDetail, message, LogKind.Trace, callerMemberName, callerLineNumber, callerFilePath);
         }
         #endregion
 
         #region Log Info
-        public partial class Kind : EnumOf<string>
-        {
-            public static Kind Info = new Kind { Value = $"{nameof(Info)}" };
-        }
+       
 
         public static Detail LogInfo(this string message,
                                      Detail parentDetail = null,
@@ -59,17 +50,12 @@ namespace EifelMono.Core.Extensions
                                      [CallerLineNumber] int callerLineNumber = -1,
                                      [CallerFilePath] string callerFilePath = "")
         {
-            return ProxyLog(null, parentDetail, message, Kind.Info, callerMemberName, callerLineNumber, callerFilePath);
+            return ProxyLog(null, parentDetail, message, LogKind.Info, callerMemberName, callerLineNumber, callerFilePath);
         }
 
         #endregion
 
         #region Log Value
-        public partial class Kind : EnumOf<string>
-        {
-            public static Kind Variable = new Kind { Value = $"{nameof(Variable)}" };
-        }
-
         public static Detail LogVariable<T>(this T value,
                                             string message = "",
                                             Detail parentDetail = null,
@@ -100,30 +86,22 @@ namespace EifelMono.Core.Extensions
                 {
                     valueString = ex.ToString();
                 }
-            return ProxyLog(null, parentDetail, valueString, Kind.Variable, callerMemberName, callerLineNumber, callerFilePath);
+            return ProxyLog(null, parentDetail, valueString, LogKind.Variable, callerMemberName, callerLineNumber, callerFilePath);
         }
         #endregion
 
         #region Log Error
-        public partial class Kind : EnumOf<string>
-        {
-            public static Kind Error = new Kind { Value = $"{nameof(Error)}" };
-        }
         public static Detail LogError(this string message,
                                       Detail parentDetail = null,
                                       [CallerMemberName] string callerMemberName = "",
                                       [CallerLineNumber] int callerLineNumber = -1,
                                       [CallerFilePath] string callerFilePath = "")
         {
-            return ProxyLog(null, parentDetail, message, Kind.Error, callerMemberName, callerLineNumber, callerFilePath);
+            return ProxyLog(null, parentDetail, message, LogKind.Error, callerMemberName, callerLineNumber, callerFilePath);
         }
         #endregion
 
         #region Log Warning
-        public partial class Kind : EnumOf<string>
-        {
-            public static Kind Warning = new Kind { Value = $"{nameof(Warning)}" };
-        }
 
         public static Detail LogWarning(this string message,
                                         Detail parentDetail = null,
@@ -131,39 +109,29 @@ namespace EifelMono.Core.Extensions
                                         [CallerLineNumber] int callerLineNumber = -1,
                                         [CallerFilePath] string callerFilePath = "")
         {
-            return ProxyLog(null, parentDetail, message, Kind.Warning, callerMemberName, callerLineNumber, callerFilePath);
+            return ProxyLog(null, parentDetail, message, LogKind.Warning, callerMemberName, callerLineNumber, callerFilePath);
         }
         #endregion
 
         #region Log Debug
-        public partial class Kind : EnumOf<string>
-        {
-            public static Kind Debug = new Kind { Value = $"{nameof(Debug)}" };
-        }
-
         public static Detail LogDebug(this string message,
                                       Detail parentDetail = null,
                                       [CallerMemberName] string callerMemberName = "",
                                       [CallerLineNumber] int callerLineNumber = -1,
                                       [CallerFilePath] string callerFilePath = "")
         {
-            return ProxyLog(null, parentDetail, message, Kind.Debug, callerMemberName, callerLineNumber, callerFilePath);
+            return ProxyLog(null, parentDetail, message, LogKind.Debug, callerMemberName, callerLineNumber, callerFilePath);
         }
         #endregion
 
         #region Log Exception
-        public partial class Kind : EnumOf<string>
-        {
-            public static Kind Exception = new Kind { Value = $"{nameof(Exception)}" };
-        }
-
         public static Detail LogException(this Exception ex,
                                          Detail parentDetail = null,
                                          [CallerMemberName] string callerMemberName = "",
                                          [CallerLineNumber] int callerLineNumber = -1,
                                          [CallerFilePath] string callerFilePath = "")
         {
-            return ProxyLog(new ExDetail { Ex = ex }, parentDetail, ex.ToString(), Kind.Exception, callerMemberName, callerLineNumber, callerFilePath);
+            return ProxyLog(new ExDetail { Ex = ex }, parentDetail, ex.ToString(), LogKind.Exception, callerMemberName, callerLineNumber, callerFilePath);
         }
 
         [Obsolete("Please use LogException for further calls")]
@@ -176,5 +144,5 @@ namespace EifelMono.Core.Extensions
             return ex.LogException(exDetail, callerMemberName, callerLineNumber, callerFilePath);
         }
         #endregion
-    }
+    } 
 }
