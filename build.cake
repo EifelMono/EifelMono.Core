@@ -10,15 +10,40 @@ var xunitReport = report + Directory("xunit");
 
 var slnProject= "./EifelMono.Core.sln";
 
-Task("Clean")
-    .Does(() =>
-{
-    CleanDirectory(artifactsDir);
-});
+
 
 Task("Restore")
+    .Does(()=> {
+        NuGetRestore(slnProject);
+ });
+
+ Task("NuGetClear")
+    .Does(() =>
+{
+    CleanDirectories("./**/bin/Release");
+});
+
+ Task("NuGetPacK")
+    .IsDependentOn("NuGetClear")
+    .IsDependentOn("BuildRelease")
+    .Does(()=> {
+        MSBuild(slnProject, 
+            new MSBuildSettings()
+                .SetConfiguration(configuration)
+                .SetVerbosity(Verbosity.Minimal));
+
+        CreateDirectory("./../FileNuGet");    
+        foreach(var file in GetFiles("./**/bin/Release/*.nupkg"))
+            CopyFile(file, "./../FileNuGet/"+ file.GetFilename());
+ });
+
+ Task("BuildRelease")
+  .IsDependentOn("Restore")
   .Does(()=> {
-      NuGetRestore(slnProject);
+      MSBuild(slnProject, 
+        new MSBuildSettings()
+            .SetConfiguration("Release")
+            .SetVerbosity(Verbosity.Minimal));
  });
 
  Task("Build")
