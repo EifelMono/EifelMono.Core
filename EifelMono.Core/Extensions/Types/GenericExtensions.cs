@@ -192,50 +192,5 @@ namespace EifelMono.Core.Extensions
                 return max;
             return val;
         }
-
-        #region Pipe
-
-        public static T Pipe<T>(this T pipe, Action<T> action)
-        {
-            action(pipe);
-            return pipe;
-        }
-
-        public static T Pipe<T>(this T pipe, Func<T, T> action)
-        {
-            return action(pipe);
-        }
-
-        #endregion
-
-        #region Json
-        public static T JsonClone<T>(this T value, T defaultValue = default(T))
-        {
-            try
-            {
-                return JsonConvert.DeserializeObject<T>(JsonConvert.SerializeObject(value));
-            }
-            catch (Exception ex)
-            {
-                ex.LogException();
-                return defaultValue;
-            }
-        }
-
-        public static string ToJsonString(this object value)
-        {
-            try
-            {
-                return JsonConvert.SerializeObject(value, Formatting.Indented);
-            }
-            catch (Exception ex)
-            {
-                ex.LogException();
-                return ex.ToString();
-            }
-        }
-        #endregion
-
-
     }
 }

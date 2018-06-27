@@ -1,9 +1,9 @@
 ﻿using System;
 using System.IO;
 
-namespace EifelMono.Core.Extensions
+namespace EifelMono.Core.Extension
 {
-    public static class StreamExtensions
+    public static class StreamExtension
     {
         public static byte[] ToByteArray(this Stream input)
         {
