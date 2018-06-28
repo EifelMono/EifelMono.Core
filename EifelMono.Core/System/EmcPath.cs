@@ -29,6 +29,7 @@ namespace EifelMono.Core.System
             var pathChars = "\\w .\\(\\)§$%&{}\\+\\-_#@~";
             var matchPattern = matchPath
                 .Replace("\\", "\\\\")
+                .Replace(".", "\\.")
                 .Replace("**", $"[{pathSplitChars}{pathChars}]+")
                 .Replace("?", $"[{pathChars}]")
                 .Replace("*", $"[{pathChars}]+");

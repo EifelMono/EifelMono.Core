@@ -1,9 +1,9 @@
-﻿using EifelMono.Core.Extension;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Reflection;
 using System.Runtime.CompilerServices;
+using EifelMono.Core.Extension;
 
 namespace EifelMono.Core.Binding
 {
@@ -48,7 +48,7 @@ namespace EifelMono.Core.Binding
 
     public class BindingClass<T> : BindingClass
     {
-        public T Data { get; set; }
+        public T Owner { get; set; }
     }
     public class BindingPageClass<T> : BindingClass<T>
     {

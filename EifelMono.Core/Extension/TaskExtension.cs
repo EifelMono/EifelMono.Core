@@ -2,9 +2,9 @@
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace EifelMono.Core.Extensions
+namespace EifelMono.Core.Extension
 {
-    public static class TasksExtensions
+    public static class TasksExtension
     {
         public static Task AsTask(this CancellationTokenSource cancellationTokenSource, int maxWait)
         {

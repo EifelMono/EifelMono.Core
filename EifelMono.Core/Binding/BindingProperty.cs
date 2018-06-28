@@ -12,6 +12,7 @@ namespace EifelMono.Core.Binding
             ParentBindingObject?.OnPropertyChanged(propertyName ?? PropertyName);
         public void RefreshAll() => OnPropertyChanged(string.Empty);
     }
+
     public class BindingProperty<T> : BindingProperty where T : IComparable
     {
         public BindingProperty([CallerMemberName]string propertyName = "")

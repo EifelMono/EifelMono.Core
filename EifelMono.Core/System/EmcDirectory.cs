@@ -1,7 +1,7 @@
-﻿using ProLog2.Essentials.EifelMono.Core.Extension;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
+using ProLog2.Essentials.EifelMono.Core.Extension;
 
 namespace EifelMono.Core.System
 {
@@ -213,6 +213,32 @@ namespace EifelMono.Core.System
 
             var result = new List<string>();
             foreach (var dir in EnumerateDirectories(startPath, "*", SearchOption.AllDirectories))
+            {
+                if (EmcPath.MatchPath(dir, filter))
+                    result.Add(dir);
+                else
+                    if (EmcPath.MatchPath(dir + $"{EmcPath.PathSeparator} ", filter))
+                    result.Add(dir);
+            }
+            return result;
+        }
+
+        public static List<string> GetFiles(string filter)
+        {
+            if (string.IsNullOrEmpty(filter))
+                filter = ".";
+
+            var dirs = new List<string>();
+            var separateFilter = EmcPath.SplitPath(filter);
+            var startPath = "";
+            foreach (var detailFilter in separateFilter)
+                if (detailFilter.OrContains("*", "?"))
+                    break;
+                else
+                    startPath = EmcPath.Combine(startPath, detailFilter);
+
+            var result = new List<string>();
+            foreach (var dir in EnumerateFiles(startPath, "*", SearchOption.AllDirectories))
             {
                 if (EmcPath.MatchPath(dir, filter))
                     result.Add(dir);
