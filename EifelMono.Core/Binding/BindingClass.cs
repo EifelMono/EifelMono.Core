@@ -50,8 +50,4 @@ namespace EifelMono.Core.Binding
     {
         public T Owner { get; set; }
     }
-    public class BindingPageClass<T> : BindingClass<T>
-    {
-        public BindingProperty<string> Title { get; set; } = new BindingProperty<string>().Default("");
-    }
 }

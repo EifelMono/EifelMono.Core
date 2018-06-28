@@ -61,5 +61,20 @@ namespace EifelMono.Core.Binding
         }
 
         public BindingProperty<T> Default(T defaultValue = default(T)) => SetValue(defaultValue);
+
+        #region Overloading
+
+        // not possible because no name
+        //public static implicit operator BindingProperty<T>(T value)
+        //{
+        //    return new BindingProperty<T>().Default(value);
+        //}
+
+        public static implicit operator T (BindingProperty<T> value)  
+        {
+            return value.Value;
+        }
+
+        #endregion
     }
 }
