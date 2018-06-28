@@ -58,5 +58,8 @@ namespace EifelMono.Core.Binding
             EventHandler changed = CanExecuteChanged;
             changed?.Invoke(this, EventArgs.Empty);
         }
+
+        public static ICommand New(ICommand backingField, Action execute)
+            => backingField ?? new BindingCommand(execute);
     }
 }
