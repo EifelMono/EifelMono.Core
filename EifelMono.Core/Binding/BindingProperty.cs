@@ -1,15 +1,15 @@
 ﻿using System;
-using System.Diagnostics;
 using System.Runtime.CompilerServices;
+using EifelMono.Core.System;
 
 namespace EifelMono.Core.Binding
 {
     public class BindingProperty
     {
         public string PropertyName { get; set; }
-        public IBindingClass ParentBindingObject { get; set; } = null;
+        public IBindingClass Owner { get; set; } = null;
         public void OnPropertyChanged(string propertyName = null) =>
-            ParentBindingObject?.OnPropertyChanged(propertyName ?? PropertyName);
+            Owner?.OnPropertyChanged(propertyName ?? PropertyName);
         public void RefreshAll() => OnPropertyChanged(string.Empty);
     }
 
@@ -19,40 +19,18 @@ namespace EifelMono.Core.Binding
         {
             PropertyName = propertyName;
         }
-        protected T _Value = default(T);
-        public T LastValue = default(T);
-        protected bool First = true;
+        protected PropertyValue<T> BindingValue = new PropertyValue<T>();
         public T Value
         {
-            get => _Value; set
+            get => BindingValue.Value;
+            set
             {
-                try
+                if (BindingValue.IsFirstOrChanged(value))
                 {
-                    if (value.CompareTo(_Value) != 0 || First)
-                    {
-                        First = false;
-                        LastValue = _Value;
-                        _Value = value;
-                        OnPropertyChanged();
-                        OnChanged?.Invoke(LastValue, value);
-                    }
-                }
-                catch (Exception ex)
-                {
-                    Debug.WriteLine(ex);
-                    _Value = value;
                     OnPropertyChanged();
+                    OnChanged?.Invoke(BindingValue.LastValue, BindingValue.Value);
                 }
             }
-        }
-
-        public delegate void OnChangedAction(T oldValue, T newValue);
-        public OnChangedAction OnChanged { get; set; }
-
-        public BindingProperty<T> SetOnChanged(OnChangedAction onChanged)
-        {
-            OnChanged = onChanged;
-            return this;
         }
         public BindingProperty<T> SetValue(T setValue)
         {
@@ -62,19 +40,33 @@ namespace EifelMono.Core.Binding
 
         public BindingProperty<T> Default(T defaultValue = default(T)) => SetValue(defaultValue);
 
-        #region Overloading
+        public delegate void OnChangedAction(T oldValue, T newValue);
+        public OnChangedAction OnChanged { get; set; }
 
+        public delegate void OnSetExceptionAction(Exception exception, T value);
+        public OnSetExceptionAction OnSetException { get; set; }
+        public BindingProperty<T> SetOnChanged(OnChangedAction onChanged)
+        {
+            OnChanged = onChanged;
+            return this;
+        }
+        public BindingProperty<T> SetOwner(IBindingClass owner)
+        {
+            Owner = owner;
+            return this;
+        }
+
+        #region Overloading
         // not possible because no name
         //public static implicit operator BindingProperty<T>(T value)
         //{
         //    return new BindingProperty<T>().Default(value);
         //}
 
-        public static implicit operator T (BindingProperty<T> value)  
+        public static implicit operator T(BindingProperty<T> value)
         {
             return value.Value;
         }
-
         #endregion
     }
 }

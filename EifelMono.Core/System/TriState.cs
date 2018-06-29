@@ -1,10 +1,9 @@
 ﻿using System;
-namespace EifelMono.Core.Classes
+namespace EifelMono.Core.System
 {
-    [Obsolete]
     public enum TriState
     {
-        Undefined,
+        Null,
         On,
         Off
     }

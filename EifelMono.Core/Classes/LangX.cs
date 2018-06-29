@@ -8,6 +8,7 @@ using System.Reflection;
 using System.Diagnostics;
 using EifelMono.Core.Extensions;
 using EifelMono.Core.Log;
+using EifelMono.Core.System;
 
 namespace EifelMono.Core.Classes
 {

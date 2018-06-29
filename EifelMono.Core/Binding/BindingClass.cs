@@ -11,30 +11,26 @@ namespace EifelMono.Core.Binding
     {
         public BindingClass()
         {
-            MvvmProperties.ForEach(p => p.ParentBindingObject = this);
+            BindingProperties.ForEach(p => p.Owner = this);
         }
 
-        #region MvvmProperties
-        protected List<BindingProperty> _MvvmProperties = null;
-        public List<BindingProperty> MvvmProperties
+        #region BindingProperties
+        protected List<BindingProperty> _BindingProperties = null;
+        public List<BindingProperty> BindingProperties
         {
-            get
-            {
-                return _MvvmProperties ?? (_MvvmProperties = new List<BindingProperty>()).Pipe((_mvvmProperties) =>
+            get => _BindingProperties ?? (_BindingProperties = new List<BindingProperty>())
+                .Pipe((bindingProperties) =>
                 {
-                    var properties = this.GetType()
-                    .GetProperties(BindingFlags.Instance | BindingFlags.Public)
-                    .Where(x => x.PropertyType.IsSubclassOf(typeof(BindingProperty)));
-                    foreach (var p in properties)
-                    {
-                        var identifier = (BindingProperty)(p.GetValue(this, null));
-                        if (identifier != null)
-                            if (!_MvvmProperties.Contains(identifier))
-                                _MvvmProperties.Add(identifier);
-                    }
-
+                    this.GetType()
+                        .GetProperties(BindingFlags.Instance | BindingFlags.Public)
+                        .Where(property => property.PropertyType.IsSubclassOf(typeof(BindingProperty)))
+                        .ForEach((property) =>
+                        {
+                            var bindingProperty = (BindingProperty)property.GetValue(this, null);
+                            if (bindingProperty != null && !bindingProperties.Contains(bindingProperty))
+                                    bindingProperties.Add(bindingProperty);
+                        });
                 });
-            }
         }
         #endregion
 
