@@ -6,7 +6,6 @@ namespace EifelMono.Core.System
     public class First
     {
         public bool State { get; set; }
-
         public bool IsFirst
         {
             get
