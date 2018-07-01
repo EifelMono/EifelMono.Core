@@ -1,10 +1,6 @@
-﻿using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.IO;
-using System.Text;
+﻿using System.IO;
 using System.Threading.Tasks;
+using Newtonsoft.Json;
 
 namespace EifelMono.Core.System
 {
@@ -60,6 +56,7 @@ namespace EifelMono.Core.System
             }).ConfigureAwait(false);
         }
 
+
         #region AllText 
         public static string ReadAllText(string fileName)
         {
@@ -84,6 +81,19 @@ namespace EifelMono.Core.System
                 WriteAllText(fileName, text);
             }).ConfigureAwait(false);
         }
+
+        public static void AppendAllText(string fileName, string text)
+        {
+            File.AppendAllText(fileName, text);
+        }
+        public static async Task AppendAllTextAsync(string fileName, string text)
+        {
+            await Task.Run(() =>
+            {
+                AppendAllText(fileName, text);
+            }).ConfigureAwait(false);
+        }
+
         #endregion
 
         #region Json

@@ -45,7 +45,7 @@ namespace EifelMono.Core.Log {
             public UInt64 Id { get; set; } = NextId;
             public UInt64 ParentId { get; set; } = 0;
 
-            #region Id Helps
+            #region Id Helpers
             private static UInt64 _NextId = 0;
             private static object NextIdLockObject = new object();
             public static UInt64 NextId
@@ -65,14 +65,13 @@ namespace EifelMono.Core.Log {
 
             public virtual string ToCsvString()
             {
-                return string.Format($"[{Id}/{ParentId}];{Kind};{Message};[{CallerMemberName}:{CallerLineNumber}:{Path.GetFileName(CallerFilePath)}]");
+                return string.Format($"{TimeStamp.ToString("yyyyMMdd HHmmss fff")};{Id};{ParentId};{Kind};{Message};[{CallerMemberName}:{CallerLineNumber}:{Path.GetFileName(CallerFilePath)}]");
             }
 
             public override string ToString()
             {
-                return string.Format($"{TimeStamp}, [{Id}/{ParentId}];{Kind};{Message};[{CallerMemberName}:{CallerLineNumber}:{Path.GetFileName(CallerFilePath)}]");
+                return string.Format($"{TimeStamp.ToString("yyyyMMdd HHmmss fff")};{Id};{ParentId};{Kind};{Message};[{CallerMemberName}:{CallerLineNumber}:{Path.GetFileName(CallerFilePath)}]");
             }
         }
     }
 }
- 

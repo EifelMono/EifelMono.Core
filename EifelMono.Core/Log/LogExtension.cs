@@ -6,7 +6,12 @@ namespace EifelMono.Core.Log {
     {
         #region Proxy, gobal call
 
-        public static ILogProxy Proxy { get; set; } = new DebugLogProxy();
+        public static ILogProxy Proxy { get; set; } = new LogProxyDebug();
+
+        public static void UseNewProxy(this ILogProxy logProxy)
+        {
+            Proxy = logProxy;
+        }
 
         public static Detail ProxyLog(Detail detail,
                                       Detail parentDetail,
