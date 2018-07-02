@@ -10,13 +10,6 @@ namespace EifelMono.Core.Tools
 {
     public static partial class Tools
     {
-        public static async Task LocalDotBackupFileAsync(string filename, int days = 30)
-        {
-            await Task.Run(() =>
-            {
-                LocalDotBackupFile(filename, days);
-            }).ConfigureAwait(false);
-        }
         public static void LocalDotBackupFile(string filename, int days = 30)
         {
             Func<DateTime, string> DateFilename = (timestamp) =>
@@ -74,6 +67,14 @@ namespace EifelMono.Core.Tools
                     }
                 }
             }
+        }
+
+        public static async Task LocalDotBackupFileAsync(string filename, int days = 30)
+        {
+            await Task.Run(() =>
+            {
+                LocalDotBackupFile(filename, days);
+            }).ConfigureAwait(false);
         }
     }
 }

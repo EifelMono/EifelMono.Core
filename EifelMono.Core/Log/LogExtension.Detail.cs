@@ -63,14 +63,20 @@ namespace EifelMono.Core.Log {
             }
             #endregion
 
-            public virtual string ToCsvString()
+            public virtual string ToCsvHeaderString()
             {
-                return string.Format($"{TimeStamp.ToString("yyyyMMdd HHmmss fff")};{Id};{ParentId};{Kind};{Message};[{CallerMemberName}:{CallerLineNumber}:{Path.GetFileName(CallerFilePath)}]");
+                return string.Format($"TimeStamp;Kind;Id;ParentId;Message;CallerMemberName;CallerLineNumber;CallerFilePath");
+            }
+
+            public virtual string ToCsvString(bool shortFileName= true)
+            {
+
+                return string.Format($"{TimeStamp};{Kind};{Id};{ParentId};{Message};{CallerMemberName};{CallerLineNumber};{(shortFileName? Path.GetFileName(CallerFilePath):CallerFilePath)}]");
             }
 
             public override string ToString()
             {
-                return string.Format($"{TimeStamp.ToString("yyyyMMdd HHmmss fff")};{Id};{ParentId};{Kind};{Message};[{CallerMemberName}:{CallerLineNumber}:{Path.GetFileName(CallerFilePath)}]");
+                return ToCsvString(true);
             }
         }
     }

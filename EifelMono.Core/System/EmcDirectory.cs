@@ -76,19 +76,20 @@ namespace EifelMono.Core.System
             }).ConfigureAwait(false);
         }
 
-        public static void EnsureDirectoryExists(string path)
+        public static string EnsureDirectoryExists(string path)
         {
             if (!Directory.Exists(path))
             {
                 Directory.CreateDirectory(path);
             }
+            return path;
         }
 
-        public static async Task EnsureDirectoryExistsAsync(string path)
+        public static async Task<string> EnsureDirectoryExistsAsync(string path)
         {
-            await Task.Run(() =>
+            return await Task<string>.Run(() =>
             {
-                EnsureDirectoryExists(path);
+                return EnsureDirectoryExists(path);
             }).ConfigureAwait(false);
         }
 

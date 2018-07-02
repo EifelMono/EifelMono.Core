@@ -1,5 +1,4 @@
-﻿using EifelMono.Core.Log;
-using System;
+﻿using System;
 using System.Text.RegularExpressions;
 
 namespace EifelMono.Core.System
@@ -21,6 +20,9 @@ namespace EifelMono.Core.System
             => Environment.OSVersion.Platform == PlatformID.Unix
                 ? path.Replace(WindowsPathSeparator, UnixPathSeprator)
                 : path.Replace(UnixPathSeprator, WindowsPathSeparator);
+
+        public static string GetFileName(string path)
+         => global::System.IO.Path.GetFileName(path);
 
 
         public static bool MatchPath(string path, string matchPath)
