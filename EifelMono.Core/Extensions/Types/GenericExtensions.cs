@@ -13,10 +13,12 @@ namespace EifelMono.Core.Extensions
 
         public static bool In<T>(this T value, IEnumerable<T> choices)
         {
+            if (choices == null)
+                return false;
             foreach (var choice in choices)
-                if (!choice.Equals(value))
-                    return false;
-            return true;
+                if (choice.Equals(value))
+                    return true;
+            return false;
         }
 
         public static bool In<T>(this T value, params T[] choices)
