@@ -8,11 +8,11 @@ namespace EifelMono.Core.Extension
 {
     public static class JsonExtension
     {
-        public static T JsonClone<T>(this T value, T defaultValue = default(T))
+        public static T JsonClone<T>(this T thisValue, T defaultValue = default(T))
         {
             try
             {
-                return JsonConvert.DeserializeObject<T>(JsonConvert.SerializeObject(value));
+                return JsonConvert.DeserializeObject<T>(JsonConvert.SerializeObject(thisValue));
             }
             catch (Exception ex)
             {
@@ -21,11 +21,11 @@ namespace EifelMono.Core.Extension
             }
         }
 
-        public static string ToJsonString(this object value)
+        public static string ToJsonString(this object thisValue)
         {
             try
             {
-                return JsonConvert.SerializeObject(value, Formatting.Indented);
+                return JsonConvert.SerializeObject(thisValue, Formatting.Indented);
             }
             catch (Exception ex)
             {

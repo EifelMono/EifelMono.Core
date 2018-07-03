@@ -4,7 +4,7 @@ namespace EifelMono.Core.Extension
 {
     public static class MathExtension
     {
-        public static T Abs<T>(this T value)
+        public static T Abs<T>(this T thisValue)
         {
             return default(T);
         }

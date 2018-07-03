@@ -5,11 +5,11 @@ namespace EifelMono.Core.Extension
 {
     public static class StreamExtension
     {
-        public static byte[] ToByteArray(this Stream input)
+        public static byte[] ToByteArray(this Stream thisValue)
         {
             using (MemoryStream ms = new MemoryStream())
             {
-                input.CopyTo(ms);
+                thisValue.CopyTo(ms);
                 return ms.ToArray();
             }
         }

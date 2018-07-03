@@ -6,14 +6,14 @@ namespace EifelMono.Core.Extension
 {
     public static class TasksExtension
     {
-        public static Task AsTask(this CancellationTokenSource cancellationTokenSource, int maxWait)
+        public static Task AsTask(this CancellationTokenSource thisValue, int maxWait)
         {
-            return Task.Delay(maxWait, cancellationTokenSource.Token);
+            return Task.Delay(maxWait, thisValue.Token);
         }
 
-        public static Task AsTask(this CancellationTokenSource cancellationTokenSource, uint maxWait)
+        public static Task AsTask(this CancellationTokenSource thisValue, uint maxWait)
         {
-            return Task.Delay((int)maxWait, cancellationTokenSource.Token);
+            return Task.Delay((int)maxWait, thisValue.Token);
         }
     }
 }
