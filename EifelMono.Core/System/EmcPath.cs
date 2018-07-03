@@ -22,8 +22,15 @@ namespace EifelMono.Core.System
                 : path.Replace(UnixPathSeprator, WindowsPathSeparator);
 
         public static string GetFileName(string path)
-         => global::System.IO.Path.GetFileName(path);
+            => global::System.IO.Path.GetFileName(path);
+        public static string ChangeExtension(string path, string extension)
+            => global::System.IO.Path.ChangeExtension(path, extension);
 
+        public static string GetDirectoryName(string path)
+          => global::System.IO.Path.GetDirectoryName(path);
+
+        public static string GetExtension(string path)
+       => global::System.IO.Path.GetExtension(path);
 
         public static bool MatchPath(string path, string matchPath)
         {

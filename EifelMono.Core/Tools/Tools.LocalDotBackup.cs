@@ -14,13 +14,13 @@ namespace EifelMono.Core.Tools
         {
             Func<DateTime, string> DateFilename = (timestamp) =>
             {
-                string backupDir = Path.Combine(Path.GetDirectoryName(filename), $".backup", $"{Path.GetFileName(filename)}");
+                string backupDir = Path.Combine(EmcPath.GetDirectoryName(filename), $".backup", $"{Path.GetFileName(filename)}");
                 EmcDirectory.EnsureDirectoryExists(backupDir);
                 var listOfNames = new List<string>();
-                var filenameExtenstion = Path.GetExtension(filename);
+                var filenameExtenstion = EmcPath.GetExtension(filename);
                 for (int index = 0; index < 30; index++)
                     listOfNames.Add(DateTime.Now.AddDays(-index).ToString("yyyyMMdd") + filenameExtenstion);
-                foreach (var file in Directory.GetFiles(backupDir))
+                foreach (var file in EmcDirectory.EnumerateFiles(backupDir))
                 {
                     var foundFilename = Path.GetFileName(file);
                     if (!listOfNames.Contains(foundFilename))
@@ -30,26 +30,26 @@ namespace EifelMono.Core.Tools
                             if (!string.IsNullOrEmpty(foundDatePartFilename))
                                 foundDatePartFilename += filenameExtenstion;
                             if (!listOfNames.Contains(foundDatePartFilename))
-                                File.Delete(file);
+                                EmcFile.Delete(file);
                         }
                         catch (Exception ex)
                         {
                             ex.LogException();
                         }
                 }
-                return Path.Combine(backupDir, timestamp.ToString("yyyyMMdd-HHmmss") + Path.GetExtension(filename));
+                return EmcPath.Combine(backupDir, timestamp.ToString("yyyyMMdd-HHmmss") + Path.GetExtension(filename));
             };
 
             if (File.Exists(filename))
             {
-                var savedFilename = Path.ChangeExtension(filename, "." + DateTime.Now.ToString("yyyyMMddHHmmssfff"));
+                var savedFilename = EmcPath.ChangeExtension(filename, "." + DateTime.Now.ToString("yyyyMMddHHmmssfff"));
                 try
                 {
-                    File.Copy(filename, savedFilename, true);
+                    EmcFile.Copy(filename, savedFilename, true);
                     var backupFilename = DateFilename(DateTime.Now); // clears the original filename
-                    File.Copy(savedFilename, backupFilename, true);
+                    EmcFile.Copy(savedFilename, backupFilename, true);
                     // File with original filename also to backup to.....
-                    File.Copy(filename, Path.Combine(Path.GetDirectoryName(backupFilename), Path.GetFileName(filename)), true);
+                    EmcFile.Copy(filename, Path.Combine(Path.GetDirectoryName(backupFilename), Path.GetFileName(filename)), true);
                 }
                 catch (Exception ex)
                 {
