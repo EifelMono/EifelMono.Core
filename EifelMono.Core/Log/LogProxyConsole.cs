@@ -47,7 +47,7 @@ namespace EifelMono.Core.Log
             if (details == null)
                 return;
             SetColors(details.Kind);
-            Console.WriteLine(details.ToCsvString());
+            Console.WriteLine(details.ToCsvString(MessageOnly, ShortFileName));
             ResetColors();
         }
     }

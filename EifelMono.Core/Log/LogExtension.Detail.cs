@@ -1,7 +1,7 @@
-﻿﻿using System;
-using System.IO;
+﻿using System;
 
-namespace EifelMono.Core.Log {
+namespace EifelMono.Core.Log
+{
     public static partial class LogExtension
     {
         public class Detail
@@ -63,21 +63,14 @@ namespace EifelMono.Core.Log {
             }
             #endregion
 
-            public virtual string ToCsvHeaderString()
-            {
-                return string.Format($"TimeStamp;Kind;Id;ParentId;Message;CallerMemberName;CallerLineNumber;CallerFilePath");
-            }
+            public virtual string ToCsvHeaderString(bool messageOnly = true)
+                => $"TimeStamp;Kind;Id;ParentId;Message{(messageOnly ? "" : ";CallerMemberName;CallerLineNumber;CallerFilePath")}";
 
-            public virtual string ToCsvString(bool shortFileName= true)
-            {
-
-                return string.Format($"{TimeStamp};{Kind};{Id};{ParentId};{Message};{CallerMemberName};{CallerLineNumber};{(shortFileName? Path.GetFileName(CallerFilePath):CallerFilePath)}]");
-            }
+            public virtual string ToCsvString(bool messageOnly = true, bool shortFileName = true)
+                => $"{TimeStamp};{Kind};{Id};{ParentId};{Message}{(messageOnly ? "" : ";{CallerMemberName};{CallerLineNumber};{(shortFileName ? Path.GetFileName(CallerFilePath) : CallerFilePath)}")}";
 
             public override string ToString()
-            {
-                return ToCsvString(true);
-            }
+                => ToCsvString(true);
         }
     }
 }

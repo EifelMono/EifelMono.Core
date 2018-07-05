@@ -8,7 +8,7 @@ namespace EifelMono.Core.Log {
 
         public static ILogProxy Proxy { get; set; } = new LogProxyDebug();
 
-        public static void UseNewProxy(this ILogProxy logProxy)
+        public static void UseAsNewProxy(this ILogProxy logProxy)
         {
             Proxy = logProxy;
         }

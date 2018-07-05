@@ -2,7 +2,9 @@
 {
     public abstract class LogProxy : ILogProxy
     {
-        public bool FileNameOnly { get; set; } = true;
+        public bool ShortFileName { get; set; } = true;
+
+        public bool MessageOnly { get; set; } = true;
 
         public abstract void Log(LogExtension.Detail details);
     }
