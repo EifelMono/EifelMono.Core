@@ -6,14 +6,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EifelMono.Core", "EifelMono
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EifelMono.Core.Tests", "EifelMono.Core.Tests\EifelMono.Core.Tests.csproj", "{4B7BA423-3763-48AB-8F66-D8099A213831}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EifelMono.CoreNet40", "EifelMono.CoreNet40\EifelMono.CoreNet40.csproj", "{A6AE6494-6090-4DFD-A2A0-659EF2925B24}"
-EndProject
-Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "EifelMono.CoreShared", "EifelMono.CoreShared\EifelMono.CoreShared.shproj", "{849912D4-B322-4F7C-BF09-269CA0EB5821}"
-EndProject
 Global
-	GlobalSection(SharedMSBuildProjectFiles) = preSolution
-		EifelMono.CoreShared\EifelMono.CoreShared.projitems*{849912d4-b322-4f7c-bf09-269ca0eb5821}*SharedItemsImports = 13
-	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
@@ -27,10 +20,6 @@ Global
 		{4B7BA423-3763-48AB-8F66-D8099A213831}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4B7BA423-3763-48AB-8F66-D8099A213831}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4B7BA423-3763-48AB-8F66-D8099A213831}.Release|Any CPU.Build.0 = Release|Any CPU
-		{A6AE6494-6090-4DFD-A2A0-659EF2925B24}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{A6AE6494-6090-4DFD-A2A0-659EF2925B24}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{A6AE6494-6090-4DFD-A2A0-659EF2925B24}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{A6AE6494-6090-4DFD-A2A0-659EF2925B24}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
