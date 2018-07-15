@@ -3,6 +3,7 @@ using Xunit;
 using EifelMono.Core.Extensions;
 using EifelMono.Core;
 using EifelMono.Core.Classes;
+using EifelMono.Core.System;
 
 namespace EifelMono.Core.Test
 {
@@ -12,34 +13,34 @@ namespace EifelMono.Core.Test
         public void TestArgument()
         {
             var KeyValue = "Hello=World";
-            Assert.Equal(KeyValue.Argument<string>("Hello"), "World");
-            Assert.Equal(KeyValue.Argument("Hello"), "World");
+            Assert.Equal("World", KeyValue.Argument<string>("Hello"));
+            Assert.Equal("World", KeyValue.Argument("Hello"));
 
             KeyValue = "TestBool=true";
-            Assert.Equal(KeyValue.Argument<bool>("TestBool"), true);
-            Assert.Equal(KeyValue.Argument("TestBool"), "true");
-            Assert.Equal(KeyValue.Argument<string>("TestBool"), "true");
+            Assert.True(KeyValue.Argument<bool>("TestBool"));
+            Assert.Equal("true", KeyValue.Argument("TestBool"));
+            Assert.Equal("true", KeyValue.Argument<string>("TestBool"));
 
             KeyValue = "SwitchIt=On";
-            Assert.Equal(KeyValue.Argument("SwitchIt"), "On");
-            Assert.Equal(KeyValue.Argument<TriState>("SwitchIt"), TriState.On);
+            Assert.Equal("On", KeyValue.Argument("SwitchIt"));
+            Assert.Equal(TriState.On, KeyValue.Argument<TriState>("SwitchIt"));
             Assert.Throws<StringExtensions.KeyNotFoundException>(() => KeyValue.Argument<TriState>("SwitchItX"));
-            Assert.Equal(KeyValue.Argument<TriState>("SwitchItX", TriState.Off), TriState.Off);
+            Assert.Equal(TriState.Off, KeyValue.Argument<TriState>("SwitchItX", TriState.Off));
 
             KeyValue = "SwitchIt=OnX";
-            Assert.Equal(KeyValue.Argument("SwitchIt"), "OnX");
+            Assert.Equal("OnX", KeyValue.Argument("SwitchIt"));
             Assert.Throws<StringExtensions.ArgumentConvertValueException>(()=> KeyValue.Argument<TriState>("SwitchIt"));
-            Assert.Equal(KeyValue.Argument<TriState>("SwitchIt", TriState.Off), TriState.Off);
+            Assert.Equal(TriState.Off, KeyValue.Argument<TriState>("SwitchIt", TriState.Off));
 
             var CommandLine = "Param1=1 Param11=a Param2=true Param22=Test Param3=false Hello=World";
-            Assert.Equal(CommandLine.Argument("Hello"), "World");
-            Assert.Equal(CommandLine.Argument<int>("Param1"), 1);
-            Assert.Equal(CommandLine.Argument<bool>("Param2"), true);
-            Assert.Equal(CommandLine.Argument<bool>("Param3"), false);
+            Assert.Equal("World", CommandLine.Argument("Hello"));
+            Assert.Equal(1, CommandLine.Argument<int>("Param1"));
+            Assert.True(CommandLine.Argument<bool>("Param2"));
+            Assert.False(CommandLine.Argument<bool>("Param3"));
 
-            Assert.Equal(CommandLine.Argument<int>("Param1x", 123), 123);
-            Assert.Equal(CommandLine.Argument<bool>("Param1x", false), false);
-            Assert.Equal(CommandLine.Argument<bool>("Param1x", true), true);
+            Assert.Equal(123, CommandLine.Argument<int>("Param1x", 123));
+            Assert.False(CommandLine.Argument<bool>("Param1x", false));
+            Assert.True(CommandLine.Argument<bool>("Param1x", true));
         }
     }
 }
