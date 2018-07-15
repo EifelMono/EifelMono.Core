@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
-using EifelMono.Core.Extensions;
+using EifelMono.Core.Extension;
 using EifelMono.Core.Log;
 using EifelMono.Core.System;
 

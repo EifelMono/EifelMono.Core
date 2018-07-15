@@ -1,7 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using EifelMono.Core.Extension;
+using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
-using ProLog2.Essentials.EifelMono.Core.Extension;
 
 namespace EifelMono.Core.System
 {
@@ -207,7 +207,7 @@ namespace EifelMono.Core.System
             var separateFilter = EmcPath.SplitPath(filter);
             var startPath = "";
             foreach (var detailFilter in separateFilter)
-                if (detailFilter.OrContains("*", "?"))
+                if (detailFilter.InContainsOne("*", "?"))
                     break;
                 else
                     startPath = EmcPath.Combine(startPath, detailFilter);
@@ -233,7 +233,7 @@ namespace EifelMono.Core.System
             var separateFilter = EmcPath.SplitPath(filter);
             var startPath = "";
             foreach (var detailFilter in separateFilter)
-                if (detailFilter.OrContains("*", "?"))
+                if (detailFilter.InContainsOne("*", "?"))
                     break;
                 else
                     startPath = EmcPath.Combine(startPath, detailFilter);

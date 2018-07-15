@@ -10,6 +10,7 @@
 		<Owners>Andreas Klapperich</Owners>
 		<Title>EifelMono.Core</Title>
 		<Description>Core c# routines for a better world</Description>
+		<LangVersion>7.3</LangVersion>
 	</PropertyGroup>
 	<ItemGroup>
 		<Folder Include="Extensions\" />

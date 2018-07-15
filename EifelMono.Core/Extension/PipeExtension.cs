@@ -11,8 +11,6 @@ namespace EifelMono.Core.Extension
         }
 
         public static T Pipe<T>(this T thisValue, Func<T, T> action)
-        {
-            return action(thisValue);
-        }
+            => action(thisValue);
     }
 }
