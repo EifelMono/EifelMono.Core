@@ -19,7 +19,7 @@ namespace EifelMono.Core.System
         }
         public static async Task<bool> ExistsAsync(string path)
         {
-            return await Task<bool>.Run(() =>
+            return await EmcTask<bool>.Run(() =>
             {
                 return Exists(path);
             }).ConfigureAwait(false);
@@ -31,7 +31,7 @@ namespace EifelMono.Core.System
 
         public static async Task CreateDirectoryAsync(string path)
         {
-            await Task.Run(() =>
+            await EmcTask.Run(() =>
             {
                 CreateDirectory(path);
             }).ConfigureAwait(false);
@@ -44,7 +44,7 @@ namespace EifelMono.Core.System
 
         public static async Task DeleteAsync(string path)
         {
-            await Task.Run(() =>
+            await EmcTask.Run(() =>
             {
                 Delete(path);
             }).ConfigureAwait(false);
@@ -57,7 +57,7 @@ namespace EifelMono.Core.System
 
         public static async Task ClearAsync(string path)
         {
-            await Task.Run(() =>
+            await EmcTask.Run(() =>
             {
                 Clear(path);
             }).ConfigureAwait(false);
@@ -70,7 +70,7 @@ namespace EifelMono.Core.System
 
         public static async Task DeleteAsync(string path, bool recursive)
         {
-            await Task.Run(() =>
+            await EmcTask.Run(() =>
             {
                 Delete(path, recursive);
             }).ConfigureAwait(false);
@@ -87,7 +87,7 @@ namespace EifelMono.Core.System
 
         public static async Task<string> EnsureDirectoryExistsAsync(string path)
         {
-            return await Task<string>.Run(() =>
+            return await EmcTask<string>.Run(() =>
             {
                 return EnsureDirectoryExists(path);
             }).ConfigureAwait(false);
@@ -112,7 +112,7 @@ namespace EifelMono.Core.System
         }
         public static async Task CopyAsync(string sourcePath, string destinationPath, bool overwrite)
         {
-            await Task.Run(() =>
+            await EmcTask.Run(() =>
             {
                 Copy(sourcePath, destinationPath, overwrite);
             }).ConfigureAwait(false);
@@ -126,7 +126,7 @@ namespace EifelMono.Core.System
 
         public static async Task<IEnumerable<string>> EnumerateFilesAsync(string path)
         {
-            return await Task<IEnumerable<string>>.Run(() =>
+            return await EmcTask<IEnumerable<string>>.Run(() =>
             {
                 return EnumerateFiles(path);
             }).ConfigureAwait(false);
@@ -137,7 +137,7 @@ namespace EifelMono.Core.System
         }
         public static async Task<IEnumerable<string>> EnumerateFilesAsync(string path, string searchPattern)
         {
-            return await Task<IEnumerable<string>>.Run(() =>
+            return await EmcTask<IEnumerable<string>>.Run(() =>
             {
                 return EnumerateFiles(path, searchPattern);
             }).ConfigureAwait(false);
@@ -150,7 +150,7 @@ namespace EifelMono.Core.System
 
         public static async Task<IEnumerable<string>> EnumerateFilesAsync(string path, string searchPattern, SearchOption searchOption)
         {
-            return await Task<IEnumerable<string>>.Run(() =>
+            return await EmcTask<IEnumerable<string>>.Run(() =>
             {
                 return EnumerateFiles(path, searchPattern, searchOption);
             }).ConfigureAwait(false);
@@ -164,7 +164,7 @@ namespace EifelMono.Core.System
         }
         public static async Task<IEnumerable<string>> EnumerateDirectoriesAsync(string path)
         {
-            return await Task<IEnumerable<string>>.Run(() =>
+            return await EmcTask<IEnumerable<string>>.Run(() =>
             {
                 return EnumerateDirectories(path);
             }).ConfigureAwait(false);
@@ -177,7 +177,7 @@ namespace EifelMono.Core.System
 
         public static async Task<IEnumerable<string>> EnumerateDirectoriesAsync(string path, string searchPattern)
         {
-            return await Task<IEnumerable<string>>.Run(() =>
+            return await EmcTask<IEnumerable<string>>.Run(() =>
             {
                 return EnumerateDirectories(path, searchPattern);
             }).ConfigureAwait(false);
@@ -189,7 +189,7 @@ namespace EifelMono.Core.System
         }
         public static async Task<IEnumerable<string>> EnumerateDirectoriesAsync(string path, string searchPattern, SearchOption searchOption)
         {
-            return await Task<string[]>.Run(() =>
+            return await EmcTask<string[]>.Run(() =>
             {
                 return EnumerateDirectories(path, searchPattern, searchOption);
             }).ConfigureAwait(false);

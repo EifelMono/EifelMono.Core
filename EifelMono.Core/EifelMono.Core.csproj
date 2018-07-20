@@ -1,20 +1,79 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project Sdk="Microsoft.NET.Sdk">
-	<PropertyGroup>
-    <TargetFramework>netstandard2.0</TargetFramework>
-		<PackOnBuild>true</PackOnBuild>
-		<PackageId>EifelMono.Core</PackageId>
-		<PackageVersion>1.0.0</PackageVersion>
-		<Authors>eifelmono@klapperich.de</Authors>
-		<NeutralLanguage>en</NeutralLanguage>
-		<Owners>Andreas Klapperich</Owners>
-		<Title>EifelMono.Core</Title>
-		<Description>Core c# routines for a better world</Description>
-		<LangVersion>7.2</LangVersion>
-	</PropertyGroup>
-	<ItemGroup>
-		<PackageReference Include="Newtonsoft.Json" Version="11.0.2" />
-		<PackageReference Include="Microsoft.CSharp" Version="4.5.0" />
-		<PackageReference Include="NuGet.Build.Packaging" Version="0.2.2" />
-	</ItemGroup>
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFrameworks>netstandard2.0;net40;net45</TargetFrameworks>
+    <EnableDefaultCompileItems>false</EnableDefaultCompileItems>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <PackOnBuild>false</PackOnBuild>
+    <PackageId>EifelMono.Core</PackageId>
+    <PackageVersion>1.0.0</PackageVersion>
+    <Authors>eifelmono@klapperich.de</Authors>
+    <NeutralLanguage>en</NeutralLanguage>
+    <Owners>Andreas Klapperich</Owners>
+    <Title>EifelMono.Core</Title>
+    <Description>Core c# routines for a better world</Description>
+    <LangVersion>7.2</LangVersion>
+    <Copyright>$(TargetFramework)</Copyright>
+    <Description>EifelMono.Core</Description>
+  </PropertyGroup>
+
+
+  <PropertyGroup Condition="'$(Configuration)'=='Release'">
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+  </PropertyGroup>
+
+  <PropertyGroup Condition=" '$(TargetFramework)' == 'netstandard2.0'">
+    <DefineConstants>NETCORE;NETSTANDARD;NETSTANDARD2_0</DefineConstants>
+  </PropertyGroup>
+
+  <PropertyGroup Condition=" '$(TargetFramework)' == 'net40'">
+    <DefineConstants>NET40;NETFULL</DefineConstants>
+  </PropertyGroup>
+
+  <PropertyGroup Condition=" '$(TargetFramework)' == 'net45'">
+    <DefineConstants>NET45;NETFULL</DefineConstants>
+  </PropertyGroup>
+
+  <ItemGroup Condition=" '$(TargetFramework)' != 'net40'">
+    <Compile Include="Binding\**\*.cs" />
+    <Compile Include="Classes\**\*.cs" />
+    <Compile Include="Extension\**\*.cs" />
+    <Compile Include="Extensions\**\*.cs" />
+    <Compile Include="Log\**\*.cs" />
+    <Compile Include="System\**\*.cs" />
+    <Compile Include="Tools\**\*.cs" />
+  </ItemGroup>
+
+  <ItemGroup Condition=" '$(TargetFramework)' == 'net40'">
+    <Compile Include="Extension\**\*.cs" />
+    <Compile Include="Extensions\**\*.cs" />
+    <Compile Include="Log\**\*.cs" />
+    <Compile Include="System\**\*.cs" />
+    <Compile Remove="System\EmcNetwork.cs" />
+    <Compile Include="Tools\**\*.cs" />
+  </ItemGroup>
+
+    <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json" Version="11.0.2" />
+     <!--PackageReference Include="NuGet.Build.Packaging" Version="0.2.2" /-->
+  </ItemGroup>
+
+  <ItemGroup Condition=" $(TargetFramework.StartsWith('netstandard')) ">
+    <PackageReference Include="Microsoft.CSharp" Version="4.5.0" />
+  </ItemGroup>
+
+  <ItemGroup Condition=" '$(TargetFramework)' == 'netstandard1.6'">
+    <PackageReference Include="System.ValueTuple" Version="4.5.0" />
+  </ItemGroup>
+
+  <ItemGroup Condition=" '$(TargetFramework)' == 'net45' OR '$(TargetFramework)' == 'net40'">
+    <Reference Include="Microsoft.CSharp" />
+    <PackageReference Include="System.ValueTuple" Version="4.5.0" />
+    <PackageReference Include="Microsoft.Bcl" Version="1.1.10" />
+    <PackageReference Include="Microsoft.Bcl.Async" Version="1.0.168" />
+    <Reference Include="PresentationCore" />
+  </ItemGroup>
+
 </Project>

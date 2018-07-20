@@ -10,6 +10,7 @@ namespace EifelMono.Core.Extension
         public static T FixNullObject<T>(this T thisValue) where T : class, new()
             => thisValue ?? new T();
 
+#if !NET40
         public static (bool Result, int Index, T Value) InX<T>(this T thisValue, IEnumerable<T> values)
         {
             int index = -1;
@@ -24,6 +25,7 @@ namespace EifelMono.Core.Extension
             return (false, -1, default);
         }
 
+
         public static (bool Result, int Index, T Value) InX<T>(this T thisValue, params T[] values)
             => InX(thisValue, values as IEnumerable<T>);
 
@@ -32,5 +34,6 @@ namespace EifelMono.Core.Extension
 
         public static bool In<T>(this T thisValue, params T[] values)
             => thisValue.In(values as IEnumerable<T>);
+#endif
     }
 }

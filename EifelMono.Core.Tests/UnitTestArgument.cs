@@ -1,3 +1,4 @@
+
 using System;
 using Xunit;
 using EifelMono.Core.Extensions;
@@ -29,7 +30,7 @@ namespace EifelMono.Core.Test
 
             KeyValue = "SwitchIt=OnX";
             Assert.Equal("OnX", KeyValue.Argument("SwitchIt"));
-            Assert.Throws<StringExtensions.ArgumentConvertValueException>(()=> KeyValue.Argument<TriState>("SwitchIt"));
+            Assert.Throws<StringExtensions.ArgumentConvertValueException>(() => KeyValue.Argument<TriState>("SwitchIt"));
             Assert.Equal(TriState.Off, KeyValue.Argument<TriState>("SwitchIt", TriState.Off));
 
             var CommandLine = "Param1=1 Param11=a Param2=true Param22=Test Param3=false Hello=World";

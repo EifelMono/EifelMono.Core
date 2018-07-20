@@ -44,3 +44,5 @@ Thumbs.db
 !**/tools/packages.config
 tools/**
 !tools/packages.config
+
+.vs

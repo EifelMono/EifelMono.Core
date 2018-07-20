@@ -40,10 +40,10 @@ Task("Restore")
  Task("BuildRelease")
   .IsDependentOn("Restore")
   .Does(()=> {
-      MSBuild(slnProject, 
-        new MSBuildSettings()
-            .SetConfiguration("Release")
-            .SetVerbosity(Verbosity.Minimal));
+        MSBuild(slnProject, 
+            new MSBuildSettings()
+                .SetConfiguration(configuration)
+                .SetVerbosity(Verbosity.Minimal));
  });
 
  Task("Build")

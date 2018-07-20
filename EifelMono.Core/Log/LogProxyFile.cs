@@ -33,7 +33,7 @@ namespace EifelMono.Core.Log
         {
             if (RootFolder == null)
                 return;
-            Task.Run(() =>
+            EmcTask.Run(() =>
             {
                 lock (LockObject)
                 {

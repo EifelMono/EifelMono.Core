@@ -12,7 +12,7 @@ namespace EifelMono.Core.System
         }
         public static async Task<bool> ExistAsync(string fileName)
         {
-            return await Task<bool>.Run(() =>
+            return await EmcTask<bool>.Run(() =>
             {
                 return Exist(fileName);
             }).ConfigureAwait(false);
@@ -24,7 +24,7 @@ namespace EifelMono.Core.System
         }
         public static async Task DeleteAsync(string fileName)
         {
-            await Task.Run(() =>
+            await EmcTask.Run(() =>
             {
                 Delete(fileName);
             }).ConfigureAwait(false);
@@ -38,7 +38,7 @@ namespace EifelMono.Core.System
 
         public static async Task EnsureExistDeleteAsync(string fileName)
         {
-            await Task.Run(() =>
+            await EmcTask.Run(() =>
             {
                 EnsureExistDelete(fileName);
             }).ConfigureAwait(false);
@@ -50,7 +50,7 @@ namespace EifelMono.Core.System
         }
         public static async Task CopyAsync(string sourceFileName, string destinationFileName, bool overwrite = false)
         {
-            await Task.Run(() =>
+            await EmcTask.Run(() =>
             {
                 Copy(sourceFileName, destinationFileName, overwrite);
             }).ConfigureAwait(false);
@@ -64,7 +64,7 @@ namespace EifelMono.Core.System
         }
         public static async Task<string> ReadAllTextAsync(string fileName)
         {
-            return await Task<string>.Run(() =>
+            return await EmcTask.Run<string>(() =>
             {
                 return ReadAllText(fileName);
             }).ConfigureAwait(false);
@@ -76,7 +76,7 @@ namespace EifelMono.Core.System
         }
         public static async Task WriteAllTextAsync(string fileName, string text)
         {
-            await Task.Run(() =>
+            await EmcTask.Run(() =>
             {
                 WriteAllText(fileName, text);
             }).ConfigureAwait(false);
@@ -88,7 +88,7 @@ namespace EifelMono.Core.System
         }
         public static async Task AppendAllTextAsync(string fileName, string text)
         {
-            await Task.Run(() =>
+            await EmcTask.Run(() =>
             {
                 AppendAllText(fileName, text);
             }).ConfigureAwait(false);
@@ -103,7 +103,7 @@ namespace EifelMono.Core.System
         }
         public static async Task<T> ReadJsonAsync<T>(string filename)
         {
-            return await Task<T>.Run(() =>
+            return await EmcTask.Run<T>(() =>
             {
                 return ReadJson<T>(filename);
             }).ConfigureAwait(false);
@@ -116,7 +116,7 @@ namespace EifelMono.Core.System
 
         public static async Task WriteJsonAsync(string filename, object value, bool formatting = false)
         {
-            await Task.Run(() =>
+            await EmcTask.Run(() =>
             {
                 WriteJson(filename, value, formatting);
             }).ConfigureAwait(false);

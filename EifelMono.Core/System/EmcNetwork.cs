@@ -10,9 +10,8 @@ namespace EifelMono.Core.System
     {
         public static bool Ping(string ipAddress, int timeout = 2000, int retries = 5)
         {
-            var task = Task<bool>.Run(async () =>
+            var task= EmcTask<bool>.Run(async () =>
             {
-
                 using (var pingSender = new Ping())
                 {
                     var options = new PingOptions
@@ -39,12 +38,11 @@ namespace EifelMono.Core.System
 
         public static async Task<bool> PingAsync(string ipAddress, int timeout = 2000, int retries = 5)
         {
-            return await Task<bool>.Run(() =>
+            return await EmcTask<bool>.Run(() =>
             {
                 return Ping(ipAddress, timeout, retries);
             }).ConfigureAwait(false);
         }
-
 
         public static bool CheckPortUsage(int port)
         {
@@ -59,7 +57,7 @@ namespace EifelMono.Core.System
 
         public static async Task<bool> CheckPortUsageAsync(int port)
         {
-            return await Task<bool>.Run(() => CheckPortUsage(port)).ConfigureAwait(false);
+            return await EmcTask<bool>.Run(() => CheckPortUsage(port)).ConfigureAwait(false);
         }
     }
 }
