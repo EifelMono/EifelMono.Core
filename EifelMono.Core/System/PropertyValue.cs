@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using EifelMono.Core.Extension;
 using EifelMono.Core.Log;
 
 namespace EifelMono.Core.System
@@ -11,8 +12,8 @@ namespace EifelMono.Core.System
         {
         }
       
-        public T Value { get; set; } = default(T);
-        public T LastValue { get; set; } = default(T);
+        public T Value { get; set; } = default;
+        public T LastValue { get; set; } = default;
 
         public void Reset(T value)
         {

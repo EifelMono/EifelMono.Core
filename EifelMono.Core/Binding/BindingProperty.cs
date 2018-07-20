@@ -28,7 +28,7 @@ namespace EifelMono.Core.Binding
                 if (BindingValue.IsFirstOrChanged(value))
                 {
                     OnPropertyChanged();
-                    OnChanged?.Invoke(BindingValue.LastValue, BindingValue.Value);
+                    OnChanged?.Invoke(this);
                 }
             }
         }
@@ -40,7 +40,7 @@ namespace EifelMono.Core.Binding
 
         public BindingProperty<T> Default(T defaultValue = default(T)) => SetValue(defaultValue);
 
-        public delegate void OnChangedAction(T oldValue, T newValue);
+        public delegate void OnChangedAction(BindingProperty<T> self);
         public OnChangedAction OnChanged { get; set; }
 
         public delegate void OnSetExceptionAction(Exception exception, T value);
@@ -63,10 +63,10 @@ namespace EifelMono.Core.Binding
         //    return new BindingProperty<T>().Default(value);
         //}
 
-        public static implicit operator T(BindingProperty<T> value)
-        {
-            return value.Value;
-        }
+        // public static implicit operator T(BindingProperty<T> value)
+        // {
+        //     return value.Value;
+        // }
         #endregion
     }
 }

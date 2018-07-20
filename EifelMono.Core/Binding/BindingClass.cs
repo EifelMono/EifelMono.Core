@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Reflection;
@@ -28,7 +29,7 @@ namespace EifelMono.Core.Binding
                         {
                             var bindingProperty = (BindingProperty)property.GetValue(this, null);
                             if (bindingProperty != null && !bindingProperties.Contains(bindingProperty))
-                                    bindingProperties.Add(bindingProperty);
+                                bindingProperties.Add(bindingProperty);
                         });
                 });
         }
@@ -40,10 +41,38 @@ namespace EifelMono.Core.Binding
             (PropertyChanged)?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         public void RefreshAll() => OnPropertyChanged(string.Empty);
         #endregion
+
+        #region property with backing field
+        protected virtual bool SetProperty<T>(
+                   ref T backingValue, T value,
+                   [CallerMemberName]string propertyName = "",
+                   Action onChanged = null,
+                   Func<T, T, bool> validateValue = null)
+        {
+            //if value didn't change
+            if (EqualityComparer<T>.Default.Equals(backingValue, value))
+                return false;
+
+            //if value changed but didn't validate
+            if (validateValue != null && !validateValue(backingValue, value))
+                return false;
+
+            backingValue = value;
+            onChanged?.Invoke();
+            OnPropertyChanged(propertyName);
+            return true;
+        }
+        #endregion
     }
 
     public class BindingClass<T> : BindingClass
     {
         public T Owner { get; set; }
+
+        public BindingClass<T> SetOwner(T owner)
+        {
+            Owner = owner;
+            return this;
+        }
     }
 }
